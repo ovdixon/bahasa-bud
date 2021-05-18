@@ -1,0 +1,16 @@
+.app-container {
+  background-color: rgb(255, 200, 200);
+}
+
+.page-container {
+	margin: 4em;
+
+
+	&#plan {
+		text-align: center;
+	}
+
+	&:not(#plan) {
+		display: none;
+	}
+}
