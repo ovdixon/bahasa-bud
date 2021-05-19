@@ -1,0 +1,16 @@
+.app-container {
+  background-color: white;
+}
+
+.page-container {
+  margin: 4em;
+}
+
+.page-container#plan {
+  text-align: center;
+}
+
+.page-container:not(#plan) {
+  display: none;
+}
+/*# sourceMappingURL=layout.css.map */

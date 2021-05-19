@@ -1,5 +1,5 @@
 nav {
-  width: 30%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -18,8 +18,8 @@ nav {
 
       &.active {
         font-weight: bold;
-        border: 2px dashed;
-        border-color: red;
+        border: 1px solid;
+        border-color:black;
       }
     }
   }
