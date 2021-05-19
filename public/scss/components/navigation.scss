@@ -1,6 +1,5 @@
 nav {
-  width: 100%;
-  background-color: red;
+  width: 30%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -11,7 +10,7 @@ nav {
     .nav-item a{
       display: inline-block;
       text-decoration: none;
-      color: white;
+      color: black;
       padding: 1em 1em;
       &:hover {
         color: #abc;
@@ -19,6 +18,8 @@ nav {
 
       &.active {
         font-weight: bold;
+        border: 2px dashed;
+        border-color: red;
       }
     }
   }

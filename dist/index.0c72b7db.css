@@ -52,7 +52,6 @@ small, .text_small {
 }
 nav {
   width: 100%;
-  background-color: red;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -64,7 +63,7 @@ nav .nav-links {
 nav .nav-links .nav-item a {
   display: inline-block;
   text-decoration: none;
-  color: white;
+  color: black;
   padding: 1em 1em;
 }
 nav .nav-links .nav-item a:hover {
@@ -72,5 +71,7 @@ nav .nav-links .nav-item a:hover {
 }
 nav .nav-links .nav-item a.active {
   font-weight: bold;
+  border: 2px solid;
+  border-color: red;
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */
