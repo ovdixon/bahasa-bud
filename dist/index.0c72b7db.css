@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Merriweather:400,700");
 .app-container {
-  background-color: white;
+  background-color: #eeeeee;
 }
 .page-container {
   margin: 4em;
@@ -71,7 +71,9 @@ nav .nav-links .nav-item a:hover {
 }
 nav .nav-links .nav-item a.active {
   font-weight: bold;
-  border: 1px solid;
-  border-color: black;
+  border: 3px solid;
+  color: #F45454;
+  border-color: #F45454;
+  border-radius: 5px;
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */

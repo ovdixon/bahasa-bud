@@ -18,8 +18,10 @@ nav {
 
       &.active {
         font-weight: bold;
-        border: 1px solid;
-        border-color:black;
+        border: 3px solid;
+        color: #F45454;
+        border-color: #F45454;
+        border-radius: 5px;
       }
     }
   }
