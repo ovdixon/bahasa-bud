@@ -61,19 +61,20 @@ nav .nav-links {
   display: flex;
 }
 nav .nav-links .nav-item a {
-  display: inline-block;
   text-decoration: none;
-  color: black;
-  padding: 1em 1em;
-}
-nav .nav-links .nav-item a:hover {
-  color: #abc;
+  color: #D3D3D3;
+  font-weight: bold;
+  padding: 1em;
 }
 nav .nav-links .nav-item a.active {
-  font-weight: bold;
-  border: 3px solid;
   color: #F45454;
-  border-color: #F45454;
-  border-radius: 5px;
+  font-weight: bold;
+}
+nav .nav-links .nav-divider hr {
+  display: inline-block;
+  width: 20px;
+  border: 1px solid;
+  color: #D3D3D3;
+  margin-top: 12px;
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */

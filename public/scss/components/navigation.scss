@@ -8,21 +8,27 @@ nav {
     list-style: none;
     display: flex;
     .nav-item a{
-      display: inline-block;
       text-decoration: none;
-      color: black;
-      padding: 1em 1em;
-      &:hover {
-        color: #abc;
-      }
-
-      &.active {
-        font-weight: bold;
-        border: 3px solid;
+      color: #D3D3D3;
+      font-weight: bold;
+      padding: 1em;
+      &.active{  
         color: #F45454;
-        border-color: #F45454;
-        border-radius: 5px;
+        font-weight: bold;
       }
+    }
+    .nav-divider hr{
+      display: inline-block;
+      width:20px;
+      border: 1px solid;
+      color: #D3D3D3;
+      margin-top: 12px;
     }
   }
 }
+
+
+
+
+
+
