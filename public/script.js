@@ -47,3 +47,45 @@ timerNav.tabs.forEach(function(tab) {
     timerNav.setTimer(tab.id)
   })
 })
+
+// CLASSIC TIMER
+var Timer = require("easytimer.js").Timer;
+const startTimer = document.querySelectorAll('.startTimer')[0]
+const pauseTimer = document.querySelectorAll('.pauseTimer')[0]
+const resetTimer = document.querySelectorAll('.resetTimer')[0]
+
+startTimer.click(function(){
+  
+})
+
+var timer = new Timer();
+
+
+startTimer.addEventListener('click', event => {
+  timer.start();
+});
+
+pauseTimer.addEventListener('click', event => {
+  timer.pause();
+});
+
+resetTimer.addEventListener('click', event => {
+  timer.reset();
+});
+
+
+timer.addEventListener('secondsUpdated', function (e) {
+  document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+});
+
+
+timer.addEventListener('started', function (e) {
+  document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+});
+
+timer.addEventListener('reset', function (e) {
+  document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+});
+
+
+

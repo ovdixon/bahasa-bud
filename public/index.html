@@ -93,13 +93,19 @@
 		<h1>Let's get to work</h1>
 		<div class="grid-container">
 			<div class="timer">
+				<h2>Timer</h2>
 				<div class="timer-tab" id="classic"><h3 class="active-tab">CLASSIC</h3></div>
 				<div class="timer-tab" id="pomodoro"><h3>POMDORO</h3></div>
 				<div id="pomodoro-container" class="timer-container">
-					<p>2</p>
+					<p>empty</p>
 				</div>
 				<div id="classic-container" class="timer-container">
-					<p>1</p>
+					<div id="classicTimer">00:00:00</div>
+					<div>
+						<button class="startTimer">Start</button>
+						<button class="pauseTimer">Pause</button>
+						<button class="resetTimer">Reset</button>
+					</div>
 				</div>
 			</div>
 			<div class="tasks">
@@ -125,7 +131,6 @@
 	
 	
 </body>
-
 <script src="script.js"></script>
 
 </html>
