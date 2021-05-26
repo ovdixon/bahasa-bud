@@ -5,6 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>repl.it</title>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="./scss/main.scss" rel="stylesheet" type="text/css">
 </head>
 
@@ -12,32 +14,118 @@
 
 	<nav class="top-nav">
 		<ul class="nav-links">
-			<li class="nav-item"> <a href="#plan" class="active">Plan</a></li>
-			<li class="nav-divider"><hr></li>
-			<li class="nav-item"> <a href="#study">Study  </a> </li>
-			<li class="nav-divider"><hr></li>
-			<li class="nav-item"> <a href="#review">Review</a> </li>
+			<li class="nav-item"><a href="#plan" class="active">PLAN</a></li>
+			<hr>
+			<li class="nav-item"><a href="#study">STUDY</a></li>
+			<hr>
+			<li class="nav-item"><a href="#review">REVIEW</a></li>
 		</ul>
 	</nav>
 
 	<div id = "plan" class="page-container">
-		<h1>Hello World Wide Web</h1>
-		<p>This time with <a href="https://expressjs.com/">Express</a> + <a href="https://v2.parceljs.org/">Parcel</a> + <a href="https://sass-lang.com/">SASS (SCSS)</a>!</p>
+		<h1>Let's  plan out your session</h1>
+		<div class="plan-grid">
+			<div class="learning-objective">
+				<h2>Set learning objective</h2>
+				<form class="objective-form">
+					<label for="objective">What do you want to achieve today:</label>
+					<input type="text" id="objective" name="objective">
+				</form>
+			</div>
+			<div class="add-task">
+				<h2>Add a task</h2>
+				<form class="add-tasks" onsubmit="return false">
+					<div class="inline-input">
+						<label for="task">Task name:</label>
+						<input type="text" name="task" id="taskInput">
+					</div>
+					<div class="inline-input">
+						<label for="task">Priority</label>
+						<select name="priority" id="priorityInput"  >
+							<option value="">Select</option>
+							<option value="Low">Low</option>
+							<option value="Medium">Medium</option>
+							<option value="High">High</option>
+						</select>
+					</div><br>
+					<div class="inline-input">
+						<label for="dueDate">Due date:</label>
+						<input type="date" name = "dueDate" id="dueDateInput" >
+					</div>
+					<div class="inline-input">
+						<label for="estimatedTime">Time:</label>
+						<input type="number" name="estimatedTime" id="estimatedTimeInput" >
+						
+					</div>
+					<button  type="submit" id="add-task">Add</button>
+					
+				</form>
+			</div>
+			<div class="manage-tasks">
+				<h2>Manage Tasks:</h2>
+				<div class="covey">
+					<div id='iu' class='quadrant'>
+						<h2 class="urgent">URGENT</h2>
+						<ul id="iu-li"></ul>
+					</div>
+		
+					<div id='nu' class='quadrant'>
+						<h2 class="not-urgent" >NOT URGENT</h2>
+						<ul id="nu-li"></ul>
+					</div>
+		
+					<div id='in' class='quadrant'>
+						<h2 class="important" >IMPORTANT</h2>
+						<ul id="in-li"></ul>
+					</div>
+		
+					<div id='nn' class='quadrant'>
+						<h2 class="not-important" >NOT IMPORTANT</h2>
+						<ul id="nn-li"></ul>
+					</div>
+				</div>
+				
+			</div>
+		  </div>
+	</div>
+	
+	<div id = "study" class="page-container">
+		<h1>Let's get to work</h1>
+		<div class="grid-container">
+			<div class="timer">
+				<div class="timer-tab" id="classic"><h3 class="active-tab">CLASSIC</h3></div>
+				<div class="timer-tab" id="pomodoro"><h3>POMDORO</h3></div>
+				<div id="pomodoro-container" class="timer-container">
+					<p>2</p>
+				</div>
+				<div id="classic-container" class="timer-container">
+					<p>1</p>
+				</div>
+			</div>
+			<div class="tasks">
+
+			</div>
+			<div class="flash-cards">
+				
+			</div>
+			<div class="music">
+				
+			</div>
+			<div class="lookup">
+				
+			</div>
+		  </div>
+		
 	</div>
 
+	<div id = "review" class="page-container">
+		<h1>Let's review today's session</h1>
+	</div>
 
-		<div id = "study" class="page-container">
-			<h1>Let's get to work</h1>
-		</div>
-
-		<div id = "review" class="page-container">
-			<h1>Let's review today's session</h1>
-		</div>
-
-
-
-	<script src="script.js">
-	</script>
+	
+	
 </body>
+
+<script src="script.js"></script>
 
 </html>

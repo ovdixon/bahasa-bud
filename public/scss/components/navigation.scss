@@ -11,18 +11,18 @@ nav {
       text-decoration: none;
       color: #D3D3D3;
       font-weight: bold;
+      font-size: 1.25em;
       padding: 1em;
       &.active{  
         color: #F45454;
         font-weight: bold;
       }
     }
-    .nav-divider hr{
+    hr{
       display: inline-block;
       width:20px;
-      border: 1px solid;
+      border: 2px dashed;
       color: #D3D3D3;
-      margin-top: 12px;
     }
   }
 }

@@ -1,14 +1,14 @@
-class Navigation {
+import { list } from "postcss";
 
-	constructor(links, pages){
-		this.links = links;
+class pageNavigation {
+
+	constructor(links, pages, dividers ){
+		this.links = Array.from(links);
 		this.pages = pages;
+		this.dividers = Array.from(dividers);
 		this.currentPage = null;
 	}
 
-	getLinks() {
-		//console.log(this.links);
-	}
 
 	setPage(pageId) {
 		this.currentPage = pageId;
@@ -26,31 +26,42 @@ class Navigation {
 
 		document.getElementById(pageId).style.display = 'block';
 
-		//
-		let lis = document.getElementsByClassName('nav-links')[0].getElementsByTagName("li");
-		var isPast = false;
-		for (var i=0;i<lis.length; i++){
-			var len = lis[i].getElementsByClassName('active').length
-			var child = lis[i].children[0]
-			if (len == 1){
-				child.style.color = '#F45454';
-				child.style.fontWeight = 'bold';
-				isPast = true;
-			} else if (len == 0 && isPast == false){
-				child.style.color = '#F45454';
-				child.style.fontWeight = 'bold';
-			} else if (isPast == true){
-				child.style.color = '#D3D3D3';
-				child.style.fontWeight = 'bold';
+		let activeIndex  = this.getIndexByClass(this.links);
+		this.styleProgressBar(activeIndex);
+
+	}
+
+	styleProgressBar(activeIndex){	
+		let completedLinks = this.links.slice(0,activeIndex);
+		let uncompletedlinks = this.links.slice(activeIndex+1);
+
+		if (completedLinks.length > 0){
+			let completedDividers = this.dividers.slice(0,activeIndex)
+			completedLinks.forEach(link => link.style.color="#F45454")
+			completedDividers.forEach(divider => divider.style.color="#F45454")
+		} 
+		if (uncompletedlinks.length > 0){
+			let uncompletedDividers = this.dividers.slice(activeIndex)
+			uncompletedlinks.forEach(link => link.style.color="#D3D3D3")
+			uncompletedDividers.forEach(divider => divider.style.color="#D3D3D3")
+		}
+
+		this.links[activeIndex].style.color = "#F45454";
+		
+	}
+
+	getIndexByClass(list){
+		for (var i=0;i<list.length;i++){
+			if (list[i].className === "active"){
+				return i;
 			}
 		}
 
 	}
-	
 
 	getHash(link){
 		return link.href.split('#')[1];
 	}
 }
 
-export default Navigation;
+export default pageNavigation;

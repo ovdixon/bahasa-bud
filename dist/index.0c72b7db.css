@@ -3,13 +3,24 @@
   background-color: #eeeeee;
 }
 .page-container {
-  margin: 4em;
-}
-.page-container#plan {
-  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 500px;
+  background-color: #f7f7f7;
+  padding: 50px;
 }
 .page-container:not(#plan) {
   display: none;
+}
+@font-face {
+  font-family: HK Grotesk;
+  src: url("https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Regular.otf?v=1603136326027") format("opentype");
+}
+@font-face {
+  font-family: HK Grotesk;
+  font-weight: bold;
+  src: url("https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Bold.otf?v=1603136323437") format("opentype");
 }
 html {
   font-size: 100%;
@@ -17,7 +28,7 @@ html {
 /*16px*/
 body {
   background: white;
-  font-family: "Helvetica", "Arial", sans-serif;
+  font-family: HK Grotesk;
   font-weight: 400;
   line-height: 1.75;
   color: #000000;
@@ -26,20 +37,22 @@ p {
   margin-bottom: 1rem;
 }
 h1, h2, h3, h4, h5 {
-  margin: 3rem 0 1.38rem;
-  font-family: "Helvetica", "Arial", sans-serif;
+  font-family: HK Grotesk;
   font-weight: 700;
   line-height: 1.3;
 }
 h1 {
   margin-top: 0;
-  font-size: 3.052rem;
+  font-size: 1.75em;
+  color: #F45454;
 }
 h2 {
-  font-size: 2.441rem;
+  font-size: 1em;
+  margin-left: 5px;
 }
 h3 {
-  font-size: 1.953rem;
+  font-size: 0.8em;
+  font-weight: 400;
 }
 h4 {
   font-size: 1.563rem;
@@ -64,17 +77,168 @@ nav .nav-links .nav-item a {
   text-decoration: none;
   color: #D3D3D3;
   font-weight: bold;
+  font-size: 1.25em;
   padding: 1em;
 }
 nav .nav-links .nav-item a.active {
   color: #F45454;
   font-weight: bold;
 }
-nav .nav-links .nav-divider hr {
+nav .nav-links hr {
   display: inline-block;
   width: 20px;
-  border: 1px solid;
+  border: 2px dashed;
   color: #D3D3D3;
-  margin-top: 12px;
+}
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "learning-objective add-task" "manage-tasks manage-tasks";
+}
+.learning-objective {
+  grid-area: learning-objective;
+  height: 100px;
+}
+.learning-objective input {
+  width: 85%;
+  line-height: 7em;
+  display: block;
+  font-size: 0.8em;
+}
+.learning-objective label {
+  font-size: 0.7em;
+  color: rgba(0, 0, 0, 0.3);
+}
+.add-task {
+  grid-area: add-task;
+  height: 100px;
+}
+.add-task form .inline-input {
+  display: inline-block;
+}
+.add-task form label {
+  font-size: 0.7em;
+  color: rgba(0, 0, 0, 0.3);
+}
+.add-task form input, .add-task form select {
+  display: block;
+  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.3);
+}
+.add-task form #taskInput {
+  width: 150px;
+  margin-right: 15px;
+}
+.add-task form #dueDateInput {
+  margin-right: 15px;
+}
+.add-task form #estimatedTimeInput {
+  width: 40px;
+}
+.manage-tasks {
+  grid-area: manage-tasks;
+}
+.covey {
+  max-width: 500px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+  margin-top: 50px;
+  margin-left: 20px;
+}
+.covey .quadrant {
+  background-color: #FFFFFF;
+  border: 1px solid darkgray;
+  border-radius: 3px;
+  height: 8rem;
+  padding: 1rem;
+  position: relative;
+}
+.covey .delTask {
+  background-color: transparent;
+  border: none;
+  margin-left: 20px;
+}
+.covey .quadrant ul {
+  margin-left: -2.5em;
+  list-style: none;
+  font-size: 0.8em;
+  position: absolute;
+  top: 10px;
+}
+.covey .quadrant h2 {
+  font-size: 0.7em;
+  position: absolute;
+  color: rgba(0, 0, 0, 0.3);
+}
+.covey .quadrant .urgent {
+  top: -30px;
+  left: 95px;
+}
+.covey .quadrant .not-urgent {
+  top: -30px;
+  left: 85px;
+}
+.covey .quadrant .important {
+  top: -110px;
+  left: -45px;
+  transform: rotate(-90deg);
+}
+.covey .quadrant .not-important {
+  top: 60px;
+  left: -305px;
+  transform: rotate(-90deg);
+}
+@media (min-width: 600px) {
+  .covey {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+::-webkit-calendar-picker-indicator {
+  margin-left: 0px;
+}
+.glyphicon {
+  color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  left: -27px;
+  top: 2px;
+  cursor: pointer;
+  padding: 6px;
+}
+#pomodoro-container {
+  display: none;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "timer tasks" "flash-cards flash-cards" "music lookup";
+}
+.grid-container .timer {
+  grid-area: timer;
+}
+.grid-container .timer .timer-tab {
+  display: inline-block;
+}
+.grid-container .timer .timer-tab h3 {
+  margin-right: 2em;
+}
+.grid-container .timer .timer-tab h3.active-tab {
+  font-weight: bold;
+}
+.grid-container .tasks {
+  grid-area: tasks;
+}
+.grid-container .flash-cards {
+  grid-area: flash-cards;
+}
+.grid-container .music {
+  grid-area: music;
+}
+.grid-container .lookup {
+  grid-area: lookup;
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */

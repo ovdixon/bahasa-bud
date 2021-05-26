@@ -3,12 +3,12 @@
 }
 
 .page-container {
-	margin: 4em;
-
-
-	&#plan {
-		text-align: center;
-	}
+	margin-left: auto;
+    margin-right: auto;
+	margin-top: 50px;
+	width: 500px;
+	background-color: rgb(247, 247, 247);
+	padding: 50px;
 
 	&:not(#plan) {
 		display: none;

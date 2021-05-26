@@ -1,0 +1,46 @@
+#pomodoro-container{
+    display: none;
+}
+
+.grid-container {
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "timer tasks"
+        "flash-cards flash-cards"
+        "music lookup";
+    .timer {
+        grid-area: timer; 
+        .timer-tab{
+            display: inline-block;
+        }
+        .timer-tab h3{
+            margin-right: 2em;
+            &.active-tab{
+                font-weight: bold;
+            }
+        }
+        
+    }
+    .tasks {
+        grid-area: tasks; 
+    }
+    .flash-cards { 
+        grid-area: flash-cards; 
+    }
+      
+    .music { 
+        grid-area: music; 
+    }
+      
+    .lookup { 
+        grid-area: lookup; 
+    }
+    
+  }
+  
+  
+  
