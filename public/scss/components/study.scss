@@ -23,10 +23,21 @@
                 font-weight: bold;
             }
         }
+        .timer-container{
+            label{
+                font-size: 0.8em;
+            }
+            input{
+                width: 3em;
+            }
+        }
         
     }
     .tasks {
-        grid-area: tasks; 
+        grid-area: tasks;
+        .completed{
+            text-decoration: line-through;
+        } 
     }
     .flash-cards { 
         grid-area: flash-cards; 

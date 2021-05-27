@@ -229,8 +229,17 @@ nav .nav-links hr {
 .grid-container .timer .timer-tab h3.active-tab {
   font-weight: bold;
 }
+.grid-container .timer .timer-container label {
+  font-size: 0.8em;
+}
+.grid-container .timer .timer-container input {
+  width: 3em;
+}
 .grid-container .tasks {
   grid-area: tasks;
+}
+.grid-container .tasks .completed {
+  text-decoration: line-through;
 }
 .grid-container .flash-cards {
   grid-area: flash-cards;

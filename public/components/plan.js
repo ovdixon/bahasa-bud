@@ -9,6 +9,7 @@ export function addTask(taskDescription, dueDate, estimatedTime, priorityRating,
       completionStatus
     };
     taskListArray.push(task);
+    setStorage();
     renderCovey(task);
 }
 
@@ -42,6 +43,13 @@ function renderCovey(task){
   delButton.addEventListener("click", function(event){
     event.preventDefault;
     item.remove();
+    let index = taskListArray.indexOf(task);
+    if(index !== -1) {
+      taskListArray.splice(index, 1);
+    }
+    console.log(taskListArray)
+    setStorage();
+    
   })
   
 
@@ -56,6 +64,8 @@ function importanceCalc(rating){
   }
 
 }
+
+[{"taskDescription":"hey","dueDate":"","priorityRating":"","estimatedTime":"","completionStatus":false}]
 
 function urgencyCalc(taskDate){
   let urgencyDate = averageDate(taskListArray);
@@ -91,3 +101,41 @@ function averageDate(taskListArray){
   }
 }
   
+
+function setStorage(){
+  localStorage.setItem("tasks",JSON.stringify(taskListArray));
+  let storedTasks =  JSON.parse(localStorage.getItem("tasks"));
+  console.log(storedTasks);
+  showTasks();
+}
+
+function showTasks(){
+  let storedTasks =  JSON.parse(localStorage.getItem("tasks"));
+  let taskList = document.getElementById('task-list');
+  while(taskList.firstChild) taskList.removeChild(taskList.firstChild);
+
+  for (var i=0; i<storedTasks.length; i++){
+      let taskValue = storedTasks[i].taskDescription;
+      let taskCompleted = storedTasks[i].completionStatus;
+      let listItem = document.createElement('li');
+      listItem.classList.add('uncompleted');
+      listItem.textContent = taskValue;
+      taskList.appendChild(listItem);
+      console.log(storedTasks[i].completionStatus);
+      let iter = i;
+
+      listItem.addEventListener('click', event => {
+
+          if (listItem.className === 'uncompleted'){
+              listItem.classList.remove('uncompleted');
+              listItem.classList.add('completed');
+          }
+          else if (listItem.className === 'completed'){
+              listItem.classList.remove('completed');
+              listItem.classList.add('uncompleted');
+          }
+          
+
+      });
+  }
+}

@@ -95,23 +95,38 @@
 			<div class="timer">
 				<h2>Timer</h2>
 				<div class="timer-tab" id="classic"><h3 class="active-tab">CLASSIC</h3></div>
-				<div class="timer-tab" id="pomodoro"><h3>POMDORO</h3></div>
-				<div id="pomodoro-container" class="timer-container">
-					<p>empty</p>
-				</div>
+				<div class="timer-tab" id="pomodoro"><h3>POMODORO</h3></div>
 				<div id="classic-container" class="timer-container">
 					<div id="classicTimer">00:00:00</div>
-					<div>
-						<button class="startTimer">Start</button>
-						<button class="pauseTimer">Pause</button>
-						<button class="resetTimer">Reset</button>
-					</div>
+					<button class="startTimer">Start</button>
+					<button class="pauseTimer">Pause</button>
+					<button class="resetTimer">Reset</button>
 				</div>
+				<div id="pomodoro-container" class="timer-container">
+					<div id="pomodoroTimer">00:25:00</div>
+					<button class="startTimer">Start</button>
+					<button class="pauseTimer">Pause</button>
+					<button class="resetTimer">Reset</button><br>
+					<form class="sessionOptions">
+						<label for="session">Session:</label>
+						<input type="number" name="session" id="sessionLength" value="25">
+						<button  type="submit" id="setSession">set</button>
+					</form>
+					<form class="breakOptions">
+						<label for="break">Break:</label>
+						<input type="number" name="break" id="breakLength" value="5">
+						<button  type="submit" id="setBreak">set</button>
+					</form>
+					
+				</div>
+				
 			</div>
 			<div class="tasks">
-
+				<h2>Tasks</h2>
+				<ul id="task-list"></ul>
 			</div>
 			<div class="flash-cards">
+				
 				
 			</div>
 			<div class="music">

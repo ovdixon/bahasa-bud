@@ -467,7 +467,6 @@ document.getElementById('add-task').addEventListener('click', function (event) {
   let estimatedTime = estimatedTimeInput.value;
   let dueDate = dueDateInput.value;
   let priority = priorityInput.options[priorityInput.selectedIndex].value;
-  console.log('success');
   _componentsPlan.addTask(task, dueDate, estimatedTime, priority, false);
 });
 // TIMER NAV
@@ -482,29 +481,10 @@ timerNav.tabs.forEach(function (tab) {
 });
 // CLASSIC TIMER
 var Timer = require("easytimer.js").Timer;
-const startTimer = document.querySelectorAll('.startTimer')[0];
-const pauseTimer = document.querySelectorAll('.pauseTimer')[0];
-const resetTimer = document.querySelectorAll('.resetTimer')[0];
-startTimer.click(function () {});
 var timer = new Timer();
-startTimer.addEventListener('click', event => {
-  timer.start();
-});
-pauseTimer.addEventListener('click', event => {
-  timer.pause();
-});
-resetTimer.addEventListener('click', event => {
-  timer.reset();
-});
-timer.addEventListener('secondsUpdated', function (e) {
-  document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
-});
-timer.addEventListener('started', function (e) {
-  document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
-});
-timer.addEventListener('reset', function (e) {
-  document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
-});
+_componentsStudy.classicTimer(timer);
+// POMDOORO TIMER
+_componentsStudy.pomodoroTimer(Timer);
 
 },{"./components/navigation":"2K1cj","./components/plan":"41ZMX","./components/study":"6VOPn","easytimer.js":"3bCzH","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"2K1cj":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
@@ -9069,6 +9049,7 @@ function addTask(taskDescription, dueDate, estimatedTime, priorityRating, comple
     completionStatus
   };
   taskListArray.push(task);
+  setStorage();
   renderCovey(task);
 }
 function renderCovey(task) {
@@ -9094,6 +9075,12 @@ function renderCovey(task) {
   delButton.addEventListener("click", function (event) {
     event.preventDefault;
     item.remove();
+    let index = taskListArray.indexOf(task);
+    if (index !== -1) {
+      taskListArray.splice(index, 1);
+    }
+    console.log(taskListArray);
+    setStorage();
   });
 }
 function importanceCalc(rating) {
@@ -9103,6 +9090,13 @@ function importanceCalc(rating) {
     return false;
   }
 }
+[{
+  "taskDescription": "hey",
+  "dueDate": "",
+  "priorityRating": "",
+  "estimatedTime": "",
+  "completionStatus": false
+}];
 function urgencyCalc(taskDate) {
   let urgencyDate = averageDate(taskListArray);
   let dueDate = new Date(taskDate);
@@ -9132,10 +9126,47 @@ function averageDate(taskListArray) {
     return someDate;
   }
 }
+function setStorage() {
+  localStorage.setItem("tasks", JSON.stringify(taskListArray));
+  let storedTasks = JSON.parse(localStorage.getItem("tasks"));
+  console.log(storedTasks);
+  showTasks();
+}
+function showTasks() {
+  let storedTasks = JSON.parse(localStorage.getItem("tasks"));
+  let taskList = document.getElementById('task-list');
+  while (taskList.firstChild) taskList.removeChild(taskList.firstChild);
+  for (var i = 0; i < storedTasks.length; i++) {
+    let taskValue = storedTasks[i].taskDescription;
+    let taskCompleted = storedTasks[i].completionStatus;
+    let listItem = document.createElement('li');
+    listItem.classList.add('uncompleted');
+    listItem.textContent = taskValue;
+    taskList.appendChild(listItem);
+    console.log(storedTasks[i].completionStatus);
+    let iter = i;
+    listItem.addEventListener('click', event => {
+      if (listItem.className === 'uncompleted') {
+        listItem.classList.remove('uncompleted');
+        listItem.classList.add('completed');
+      } else if (listItem.className === 'completed') {
+        listItem.classList.remove('completed');
+        listItem.classList.add('uncompleted');
+      }
+    });
+  }
+}
 
 },{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"6VOPn":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "classicTimer", function () {
+  return classicTimer;
+});
+_parcelHelpers.export(exports, "pomodoroTimer", function () {
+  return pomodoroTimer;
+});
+require("postcss");
 class timerNavigation {
   constructor(tabs, containers) {
     this.containers = containers;
@@ -9157,9 +9188,73 @@ class timerNavigation {
     document.getElementById(timerId + '-container').style.display = 'block';
   }
 }
+function classicTimer(timer) {
+  let startTimer = document.getElementById("classic-container").getElementsByClassName("startTimer").item(0);
+  let pauseTimer = document.getElementById("classic-container").getElementsByClassName("pauseTimer").item(0);
+  let resetTimer = document.getElementById("classic-container").getElementsByClassName("resetTimer").item(0);
+  startTimer.addEventListener('click', event => {
+    timer.start();
+  });
+  pauseTimer.addEventListener('click', event => {
+    timer.pause();
+  });
+  resetTimer.addEventListener('click', event => {
+    timer.reset();
+  });
+  timer.addEventListener('secondsUpdated', function (e) {
+    document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+  });
+  timer.addEventListener('started', function (e) {
+    document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+  });
+  timer.addEventListener('reset', function (e) {
+    document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+  });
+}
+function pomodoroTimer(Timer) {
+  let startTimer = document.getElementById("pomodoro-container").getElementsByClassName("startTimer").item(0);
+  let setSession = document.getElementById('setSession');
+  let setBreak = document.getElementById('setBreak');
+  startTimer.addEventListener('click', event => {
+    setPomodoro(Timer, 25);
+  });
+  setSession.addEventListener('click', event => {
+    event.preventDefault();
+    setPomodoro(Timer, sessionLength.value);
+  });
+  setBreak.addEventListener('click', event => {
+    event.preventDefault();
+    setPomodoro(Timer, breakLength.value);
+  });
+}
+function setPomodoro(Timer, time) {
+  let startTimer = document.getElementById("pomodoro-container").getElementsByClassName("startTimer").item(0);
+  let pauseTimer = document.getElementById("pomodoro-container").getElementsByClassName("pauseTimer").item(0);
+  let resetTimer = document.getElementById("pomodoro-container").getElementsByClassName("resetTimer").item(0);
+  var pomodoro = new Timer();
+  pomodoro.start({
+    countdown: true,
+    startValues: {
+      minutes: parseInt(time)
+    }
+  });
+  startTimer.addEventListener('click', event => {
+    pomodoro.start();
+  });
+  pauseTimer.addEventListener('click', event => {
+    pomodoro.pause();
+  });
+  resetTimer.addEventListener('click', event => {
+    document.getElementById('pomodoroTimer').innerHTML = "00:" + time + ":00";
+    pomodoro.reset();
+  });
+  pomodoro.addEventListener('secondsUpdated', function (e) {
+    document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
+  });
+}
 exports.default = timerNavigation;
 
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"3bCzH":[function(require,module,exports) {
+},{"postcss":"4txsy","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"3bCzH":[function(require,module,exports) {
 var define;
 /**
 * easytimer.js
