@@ -71,7 +71,6 @@ export function pomodoroTimer(Timer){
     });
 
     setSession.addEventListener('click', event => {
-        
         event.preventDefault();
         setPomodoro(Timer, sessionLength.value);
     });
@@ -107,6 +106,47 @@ function setPomodoro(Timer, time){
     }); 
 }
 
+var flashCardArray = [];
 
+export function addFlashCard(question, answer){ 
+    var active;
+    if (flashCardArray.length == 0){
+        active = true;
+    } else {
+        active = false;
+    }
+    let card = {
+        question,
+        answer,
+        active
+    }
+    flashCardArray.push(card);
+    setCardDeck(null);
+}
+
+
+
+export function setCardDeck(move){
+    let question = document.getElementsByClassName('question')[0];
+    let answer = document.getElementsByClassName('answer')[0];
+
+    var cardIndex; 
+
+    for (var i=0; i<flashCardArray.length; i++){
+        if (flashCardArray[i].active == true){
+            cardIndex = i;
+        }
+    }
+
+    if (move === 'next'){
+        cardIndex += 1;
+    }
+
+    console.log(cardIndex);
+    console.log(flashCardArray);
+
+    question.innerHTML = flashCardArray[cardIndex].question;
+    answer.innerHTML = flashCardArray[cardIndex].answer;
+ }
 
 export default timerNavigation

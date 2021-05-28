@@ -242,12 +242,54 @@ nav .nav-links hr {
   text-decoration: line-through;
 }
 .grid-container .flash-cards {
+  margin-top: 2em;
   grid-area: flash-cards;
+}
+.grid-container .flash-cards .flash-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "add-card card-stack" "add-card card-stack";
+}
+.grid-container .flash-cards .add-card {
+  grid-area: add-card;
+}
+.grid-container .flash-cards .card-stack {
+  grid-area: card-stack;
+}
+.grid-container .flash-cards .card-stack .nextCard {
+  float: right;
+}
+.grid-container .flash-cards .card-stack .backCard {
+  float: left;
+}
+.grid-container .flash-cards .card-stack .card {
+  background-color: lightgray;
+  width: 100%;
+  height: 140px;
+}
+.grid-container .flash-cards .card-stack .card .question {
+  width: 100%;
+  height: 70px;
+}
+.grid-container .flash-cards .card-stack .card .answer {
+  width: 100%;
+  height: 70px;
+  background-color: lightpink;
 }
 .grid-container .music {
   grid-area: music;
 }
 .grid-container .lookup {
   grid-area: lookup;
+}
+@media only screen and (max-width: 600px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 1em;
+    grid-row-gap: 100px;
+  }
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */

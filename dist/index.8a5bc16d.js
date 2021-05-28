@@ -485,6 +485,24 @@ var timer = new Timer();
 _componentsStudy.classicTimer(timer);
 // POMDOORO TIMER
 _componentsStudy.pomodoroTimer(Timer);
+// SHOW TASKS
+// let tasks = localStorage.getItem("tasks");
+// FLASH CARDS
+const nextCard = document.getElementById('nextCard');
+const backCard = document.getElementById('backCard');
+nextCard.addEventListener('click', function () {
+  _componentsStudy.setCardDeck('next');
+});
+backCard.addEventListener('click', function () {
+  _componentsStudy.setCardDeck('back');
+});
+var addCard = document.getElementById('addCard');
+addCard.addEventListener('click', event => {
+  event.preventDefault();
+  let question = cardQuestion.value;
+  let answer = cardAnswer.value;
+  _componentsStudy.addFlashCard(question, answer);
+});
 
 },{"./components/navigation":"2K1cj","./components/plan":"41ZMX","./components/study":"6VOPn","easytimer.js":"3bCzH","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"2K1cj":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
@@ -9166,6 +9184,12 @@ _parcelHelpers.export(exports, "classicTimer", function () {
 _parcelHelpers.export(exports, "pomodoroTimer", function () {
   return pomodoroTimer;
 });
+_parcelHelpers.export(exports, "addFlashCard", function () {
+  return addFlashCard;
+});
+_parcelHelpers.export(exports, "setCardDeck", function () {
+  return setCardDeck;
+});
 require("postcss");
 class timerNavigation {
   constructor(tabs, containers) {
@@ -9251,6 +9275,39 @@ function setPomodoro(Timer, time) {
   pomodoro.addEventListener('secondsUpdated', function (e) {
     document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
   });
+}
+var flashCardArray = [];
+function addFlashCard(question, answer) {
+  var active;
+  if (flashCardArray.length == 0) {
+    active = true;
+  } else {
+    active = false;
+  }
+  let card = {
+    question,
+    answer,
+    active
+  };
+  flashCardArray.push(card);
+  setCardDeck(null);
+}
+function setCardDeck(move) {
+  let question = document.getElementsByClassName('question')[0];
+  let answer = document.getElementsByClassName('answer')[0];
+  var cardIndex;
+  for (var i = 0; i < flashCardArray.length; i++) {
+    if (flashCardArray[i].active == true) {
+      cardIndex = i;
+    }
+  }
+  if (move === 'next') {
+    cardIndex += 1;
+  }
+  console.log(cardIndex);
+  console.log(flashCardArray);
+  question.innerHTML = flashCardArray[cardIndex].question;
+  answer.innerHTML = flashCardArray[cardIndex].answer;
 }
 exports.default = timerNavigation;
 

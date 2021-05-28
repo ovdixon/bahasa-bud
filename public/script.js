@@ -1,6 +1,6 @@
 import pageNavigation from './components/navigation'
 import {addTask} from './components/plan'
-import timerNavigation, { classicTimer, pomodoroTimer, showTasks } from './components/study'
+import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, setCardDeck } from './components/study'
 
 
 const links = document.querySelectorAll('nav > ul > li > a');
@@ -66,4 +66,32 @@ pomodoroTimer(Timer);
 
 // SHOW TASKS
 //let tasks = localStorage.getItem("tasks");
+
+
+// FLASH CARDS
+
+const nextCard = document.getElementById('nextCard');
+const backCard = document.getElementById('backCard');
+
+nextCard.addEventListener('click', function(){
+  setCardDeck('next');
+})
+
+
+backCard.addEventListener('click', function(){
+  setCardDeck('back');
+  
+
+})
+
+
+
+
+var addCard = document.getElementById('addCard');
+addCard.addEventListener('click', event => {
+  event.preventDefault();
+  let question = cardQuestion.value;
+  let answer = cardAnswer.value;
+  addFlashCard(question, answer);
+});
 
