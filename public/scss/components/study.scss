@@ -1,48 +1,94 @@
-#pomodoro-container{
-    display: none;
-}
+
 
 .grid-container {
-    
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 0px 0px;
+    grid-gap: 20px;
+    padding: 10px;
     grid-template-areas:
         "timer tasks"
         "flash-cards flash-cards"
         "music lookup";
-    .timer {
-        grid-area: timer; 
-        .timer-tab{
-            display: inline-block;
-        }
-        .timer-tab h3{
-            margin-right: 2em;
-            &.active-tab{
+}
+
+button{
+    font-size: 0.7em;
+    font-family: HK Grotesk;
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+
+.timer {
+    grid-area: timer;
+
+    .timer-container{
+        display: flex;
+        justify-content: center;
+        flex-direction:column;
+        border: 1px solid darkgray;
+        border-radius: 3px;
+        height: 240px;
+        
+        .tabs{
+            border-bottom: 1px solid darkgray;
+            display: flex;
+            justify-content: space-around;
+            .active-tab{
                 font-weight: bold;
             }
         }
-        .timer-container{
-            label{
-                font-size: 0.8em;
+        .timers{
+            height: 200px;
+            margin-top: -15px;
+            text-align: center;
+            p{
+                font-size: 2em;
+            }
+            label, input{
+                font-size: 0.7em;
+                color: rgba(0, 0, 0, 0.3);
             }
             input{
-                width: 3em;
+                width: 40px;
+            }
+            .timer-controls{
+                display: inline-block;
+                margin-bottom: 10px;
             }
         }
-        
+        #pomodoro{
+            display: none;
+        }
+
     }
-    .tasks {
-        grid-area: tasks;
+}
+        
+
+.tasks {
+    grid-area: tasks;
+    .tasks-container{
+        border: 1px solid darkgray;
+        border-radius: 3px;
+        height: 240px;
         .completed{
             text-decoration: line-through;
         } 
     }
+    
+}
+
+
+
+
     .flash-cards { 
-        margin-top: 2em;
         grid-area: flash-cards; 
         .flash-cards-container {
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            height: 200px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
@@ -51,33 +97,74 @@
               "add-card card-stack"
               "add-card card-stack";
           }
+          label{
+            font-size: 0.7em;
+            color: rgba(0, 0, 0, 0.3);
+        }
+        #flashCardForm{
+            padding-left: 20px;
+            padding-top: 10px;
+        } 
+        input, button{
+            font-size: 0.7em;
+            font-family: HK Grotesk;
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            height: 20px;
+            box-sizing: border-box;
+        }
           .add-card { grid-area: add-card; }
           .card-stack { 
+              padding-top: 20px;
               grid-area: card-stack;
-              .nextCard{
-                  float: right;
-              }
-              .backCard{
-                  float: left;
+              .flash-card-nav{
+                display: flex;
+                justify-content:space-evenly;
+                width: 200px;
+                padding-top: 10px;
               }
               .card{
                   background-color: lightgray;
-                  width: 100%;
+                  width: 200px;
                   height: 140px;
+                  position: relative;
                   .question{
                     width: 100%;
-                    height: 70px;
+                    height: 100%;            
+                    position: absolute;
+                    left: 0;
+                    h2{
+                        font-size: 0.6em;
+                        color: rgb(233, 233, 233);
+                    }
+                    #qanda{
+                        list-style: none;
+                        font-size: 0.85em;
+
+                    }
                   }
-                  .answer{
-                    width: 100%;
-                    height: 70px;
-                    background-color: lightpink;
+                  .answerText{
+                      margin-top: 50px;
+                    
+                }
+                  #showAnswer{
+                    height: 50%;            
+                    bottom: 0;
+                    z-index: 9;
+                    background-color: rgb(190, 190, 190);
+                  }
+                  #showAnswer:hover{
+                    background-color: rgba(0,0,0,0);
+                    h2{
+                        display: none;
+                    }
+
                   }
               }
 
             }
     }
-      
+
     .music { 
         grid-area: music; 
     }
@@ -86,7 +173,6 @@
         grid-area: lookup; 
     }
     
-  }
   
   
 

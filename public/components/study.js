@@ -8,28 +8,28 @@ class timerNavigation {
     }
 
     setTimer(timerId){
-        this.currentTimer = timerId;
-
+        this.currentTimer = timerId.split('-')[0];
         this.tabs.forEach((tab) => {
-            tab.firstElementChild.classList.remove('active-tab');
+            tab.classList.remove('active-tab');
             if (tab.id == timerId){
-                tab.firstElementChild.classList.add('active-tab');
+                tab.classList.add('active-tab');
             }
         })
+        
         this.containers.forEach((container) => {
 			container.style.display = 'none';
 		})
         var somelem = document.getElementById(timerId)
-        document.getElementById(timerId+'-container').style.display = 'block';
+        document.getElementById(this.currentTimer).style.display = 'block';
     }
 }
 
 
 
 export function classicTimer(timer){
-    let startTimer = document.getElementById("classic-container").getElementsByClassName("startTimer").item(0);
-    let pauseTimer = document.getElementById("classic-container").getElementsByClassName("pauseTimer").item(0);
-    let resetTimer = document.getElementById("classic-container").getElementsByClassName("resetTimer").item(0);
+    let startTimer = document.getElementById("startClassic");
+    let pauseTimer = document.getElementById("pauseClassic");
+    let resetTimer = document.getElementById("resetClassic");
 
     startTimer.addEventListener('click', event => {
         timer.start();
@@ -45,16 +45,16 @@ export function classicTimer(timer){
     
     
     timer.addEventListener('secondsUpdated', function (e) {
-        document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+        document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
     });
     
     
     timer.addEventListener('started', function (e) {
-        document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+        document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
     });
     
     timer.addEventListener('reset', function (e) {
-        document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+        document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
     });
 
 }
@@ -62,7 +62,7 @@ export function classicTimer(timer){
 //https://stackoverflow.com/questions/34558116/re-starting-a-timer-after-stopping-it
 
 export function pomodoroTimer(Timer){
-    let startTimer = document.getElementById("pomodoro-container").getElementsByClassName("startTimer").item(0);
+    let startTimer = document.getElementById('startPomodoro');
     let setSession = document.getElementById('setSession');
     let setBreak = document.getElementById('setBreak');
 
@@ -82,9 +82,9 @@ export function pomodoroTimer(Timer){
 }
 
 function setPomodoro(Timer, time){
-    let startTimer = document.getElementById("pomodoro-container").getElementsByClassName("startTimer").item(0);
-    let pauseTimer = document.getElementById("pomodoro-container").getElementsByClassName("pauseTimer").item(0);
-    let resetTimer = document.getElementById("pomodoro-container").getElementsByClassName("resetTimer").item(0);
+    let startTimer = document.getElementById('startPomodoro');
+    let pauseTimer = document.getElementById("pausePomodoro");
+    let resetTimer = document.getElementById("resetPomodoro");
     var pomodoro = new Timer();
     pomodoro.start({countdown: true, startValues: {minutes: parseInt(time)}});
 
@@ -106,7 +106,11 @@ function setPomodoro(Timer, time){
     }); 
 }
 
+
+// FLASH
+
 var flashCardArray = [];
+var cardIndex; 
 
 export function addFlashCard(question, answer){ 
     var active;
@@ -121,32 +125,64 @@ export function addFlashCard(question, answer){
         active
     }
     flashCardArray.push(card);
-    setCardDeck(null);
+    renderFlashCards();
 }
 
+export function renderFlashCards(){
+    let question = document.getElementById('qanda');
+    if (flashCardArray.length == 0){
+    } else{
+        while(question.firstChild) question.removeChild(question.firstChild);
+        indexFlashCard();
+        let questionText = document.createElement("li");
+        questionText.classList.add("questionText");
+        let answerText = document.createElement("li");
+        answerText.classList.add("answerText");
+        questionText.innerText = flashCardArray[cardIndex].question;
+        answerText.innerText = flashCardArray[cardIndex].answer;
+        question.appendChild(questionText);
+        question.appendChild(answerText);
+    }
+}
+
+export function nextFlashCard(dir){
+    if (flashCardArray.length !== 0){
+        flashCardArray[cardIndex].active = false;
+        if (dir == true){
+            if ((cardIndex+1)==flashCardArray.length){
+                flashCardArray[0].active = true;
+            } else {
+                flashCardArray[cardIndex + 1].active = true;
+            }
+        }
+        else if (dir == false){
+            if ((cardIndex-1) < 0){
+                flashCardArray[flashCardArray.length-1].active = true;
+            } else {
+                flashCardArray[cardIndex - 1].active = true;
+            }
+        }
+        renderFlashCards();
+    }
+}
+
+export function deleteFlashCard(){
+    flashCardArray.splice(cardIndex, 1);
+    cardIndex - 1;
+    renderFlashCards();
 
 
-export function setCardDeck(move){
-    let question = document.getElementsByClassName('question')[0];
-    let answer = document.getElementsByClassName('answer')[0];
+}
 
-    var cardIndex; 
-
+function indexFlashCard(){
     for (var i=0; i<flashCardArray.length; i++){
         if (flashCardArray[i].active == true){
             cardIndex = i;
         }
     }
+}
 
-    if (move === 'next'){
-        cardIndex += 1;
-    }
 
-    console.log(cardIndex);
-    console.log(flashCardArray);
 
-    question.innerHTML = flashCardArray[cardIndex].question;
-    answer.innerHTML = flashCardArray[cardIndex].answer;
- }
 
 export default timerNavigation

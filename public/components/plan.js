@@ -47,7 +47,6 @@ function renderCovey(task){
     if(index !== -1) {
       taskListArray.splice(index, 1);
     }
-    console.log(taskListArray)
     setStorage();
     
   })
@@ -70,8 +69,7 @@ function importanceCalc(rating){
 function urgencyCalc(taskDate){
   let urgencyDate = averageDate(taskListArray);
   let dueDate = new Date(taskDate);
-  //console.log("average:"+urgencyDate);
-  //console.log("task:"+dueDate);
+
   if (dueDate < urgencyDate){
     return true;
   }
@@ -105,7 +103,6 @@ function averageDate(taskListArray){
 function setStorage(){
   localStorage.setItem("tasks",JSON.stringify(taskListArray));
   let storedTasks =  JSON.parse(localStorage.getItem("tasks"));
-  console.log(storedTasks);
   showTasks();
 }
 
@@ -121,7 +118,6 @@ function showTasks(){
       listItem.classList.add('uncompleted');
       listItem.textContent = taskValue;
       taskList.appendChild(listItem);
-      console.log(storedTasks[i].completionStatus);
       let iter = i;
 
       listItem.addEventListener('click', event => {

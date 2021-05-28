@@ -460,20 +460,22 @@ nav.links.forEach(function (link) {
   });
 });
 // ADD TASK
-const taskForm = document.querySelector('.add-task');
-document.getElementById('add-task').addEventListener('click', function (event) {
+const taskForm = document.querySelector('.add-tasks');
+function addTaskForm(event) {
   event.preventDefault();
   let task = taskInput.value;
   let estimatedTime = estimatedTimeInput.value;
   let dueDate = dueDateInput.value;
   let priority = priorityInput.options[priorityInput.selectedIndex].value;
   _componentsPlan.addTask(task, dueDate, estimatedTime, priority, false);
-});
+  taskForm.reset();
+  return false;
+}
+window.addTaskForm = addTaskForm;
 // TIMER NAV
-const timerContainers = document.querySelectorAll('.timer-container');
-const timerTabs = document.querySelectorAll('.timer-tab');
+const timerContainers = document.querySelectorAll('.timers');
+const timerTabs = document.querySelector('.tabs').querySelectorAll('h3');
 var timerNav = new _componentsStudyDefault.default(timerTabs, timerContainers);
-1;
 timerNav.tabs.forEach(function (tab) {
   tab.addEventListener('click', function () {
     timerNav.setTimer(tab.id);
@@ -490,12 +492,19 @@ _componentsStudy.pomodoroTimer(Timer);
 // FLASH CARDS
 const nextCard = document.getElementById('nextCard');
 const backCard = document.getElementById('backCard');
+const deleteCard = document.getElementById('deleteCard');
+_componentsStudy.renderFlashCards();
 nextCard.addEventListener('click', function () {
-  _componentsStudy.setCardDeck('next');
+  _componentsStudy.nextFlashCard(true);
 });
 backCard.addEventListener('click', function () {
-  _componentsStudy.setCardDeck('back');
+  _componentsStudy.nextFlashCard(false);
 });
+/*
+deleteCard.addEventListener('click', function(){
+deleteFlashCard();
+})
+*/
 var addCard = document.getElementById('addCard');
 addCard.addEventListener('click', event => {
   event.preventDefault();
@@ -9097,7 +9106,6 @@ function renderCovey(task) {
     if (index !== -1) {
       taskListArray.splice(index, 1);
     }
-    console.log(taskListArray);
     setStorage();
   });
 }
@@ -9118,8 +9126,6 @@ function importanceCalc(rating) {
 function urgencyCalc(taskDate) {
   let urgencyDate = averageDate(taskListArray);
   let dueDate = new Date(taskDate);
-  // console.log("average:"+urgencyDate);
-  // console.log("task:"+dueDate);
   if (dueDate < urgencyDate) {
     return true;
   } else {
@@ -9147,7 +9153,6 @@ function averageDate(taskListArray) {
 function setStorage() {
   localStorage.setItem("tasks", JSON.stringify(taskListArray));
   let storedTasks = JSON.parse(localStorage.getItem("tasks"));
-  console.log(storedTasks);
   showTasks();
 }
 function showTasks() {
@@ -9161,7 +9166,6 @@ function showTasks() {
     listItem.classList.add('uncompleted');
     listItem.textContent = taskValue;
     taskList.appendChild(listItem);
-    console.log(storedTasks[i].completionStatus);
     let iter = i;
     listItem.addEventListener('click', event => {
       if (listItem.className === 'uncompleted') {
@@ -9187,8 +9191,14 @@ _parcelHelpers.export(exports, "pomodoroTimer", function () {
 _parcelHelpers.export(exports, "addFlashCard", function () {
   return addFlashCard;
 });
-_parcelHelpers.export(exports, "setCardDeck", function () {
-  return setCardDeck;
+_parcelHelpers.export(exports, "renderFlashCards", function () {
+  return renderFlashCards;
+});
+_parcelHelpers.export(exports, "nextFlashCard", function () {
+  return nextFlashCard;
+});
+_parcelHelpers.export(exports, "deleteFlashCard", function () {
+  return deleteFlashCard;
 });
 require("postcss");
 class timerNavigation {
@@ -9198,24 +9208,24 @@ class timerNavigation {
     this.currentTimer = null;
   }
   setTimer(timerId) {
-    this.currentTimer = timerId;
+    this.currentTimer = timerId.split('-')[0];
     this.tabs.forEach(tab => {
-      tab.firstElementChild.classList.remove('active-tab');
+      tab.classList.remove('active-tab');
       if (tab.id == timerId) {
-        tab.firstElementChild.classList.add('active-tab');
+        tab.classList.add('active-tab');
       }
     });
     this.containers.forEach(container => {
       container.style.display = 'none';
     });
     var somelem = document.getElementById(timerId);
-    document.getElementById(timerId + '-container').style.display = 'block';
+    document.getElementById(this.currentTimer).style.display = 'block';
   }
 }
 function classicTimer(timer) {
-  let startTimer = document.getElementById("classic-container").getElementsByClassName("startTimer").item(0);
-  let pauseTimer = document.getElementById("classic-container").getElementsByClassName("pauseTimer").item(0);
-  let resetTimer = document.getElementById("classic-container").getElementsByClassName("resetTimer").item(0);
+  let startTimer = document.getElementById("startClassic");
+  let pauseTimer = document.getElementById("pauseClassic");
+  let resetTimer = document.getElementById("resetClassic");
   startTimer.addEventListener('click', event => {
     timer.start();
   });
@@ -9226,17 +9236,17 @@ function classicTimer(timer) {
     timer.reset();
   });
   timer.addEventListener('secondsUpdated', function (e) {
-    document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+    document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
   });
   timer.addEventListener('started', function (e) {
-    document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+    document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
   });
   timer.addEventListener('reset', function (e) {
-    document.getElementById('classicTimer').innerHTML = timer.getTimeValues().toString();
+    document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
   });
 }
 function pomodoroTimer(Timer) {
-  let startTimer = document.getElementById("pomodoro-container").getElementsByClassName("startTimer").item(0);
+  let startTimer = document.getElementById('startPomodoro');
   let setSession = document.getElementById('setSession');
   let setBreak = document.getElementById('setBreak');
   startTimer.addEventListener('click', event => {
@@ -9252,9 +9262,9 @@ function pomodoroTimer(Timer) {
   });
 }
 function setPomodoro(Timer, time) {
-  let startTimer = document.getElementById("pomodoro-container").getElementsByClassName("startTimer").item(0);
-  let pauseTimer = document.getElementById("pomodoro-container").getElementsByClassName("pauseTimer").item(0);
-  let resetTimer = document.getElementById("pomodoro-container").getElementsByClassName("resetTimer").item(0);
+  let startTimer = document.getElementById('startPomodoro');
+  let pauseTimer = document.getElementById("pausePomodoro");
+  let resetTimer = document.getElementById("resetPomodoro");
   var pomodoro = new Timer();
   pomodoro.start({
     countdown: true,
@@ -9276,7 +9286,9 @@ function setPomodoro(Timer, time) {
     document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
   });
 }
+// FLASH
 var flashCardArray = [];
+var cardIndex;
 function addFlashCard(question, answer) {
   var active;
   if (flashCardArray.length == 0) {
@@ -9290,24 +9302,53 @@ function addFlashCard(question, answer) {
     active
   };
   flashCardArray.push(card);
-  setCardDeck(null);
+  renderFlashCards();
 }
-function setCardDeck(move) {
-  let question = document.getElementsByClassName('question')[0];
-  let answer = document.getElementsByClassName('answer')[0];
-  var cardIndex;
+function renderFlashCards() {
+  let question = document.getElementById('qanda');
+  if (flashCardArray.length == 0) {} else {
+    while (question.firstChild) question.removeChild(question.firstChild);
+    indexFlashCard();
+    let questionText = document.createElement("li");
+    questionText.classList.add("questionText");
+    let answerText = document.createElement("li");
+    answerText.classList.add("answerText");
+    questionText.innerText = flashCardArray[cardIndex].question;
+    answerText.innerText = flashCardArray[cardIndex].answer;
+    question.appendChild(questionText);
+    question.appendChild(answerText);
+  }
+}
+function nextFlashCard(dir) {
+  if (flashCardArray.length !== 0) {
+    flashCardArray[cardIndex].active = false;
+    if (dir == true) {
+      if (cardIndex + 1 == flashCardArray.length) {
+        flashCardArray[0].active = true;
+      } else {
+        flashCardArray[cardIndex + 1].active = true;
+      }
+    } else if (dir == false) {
+      if (cardIndex - 1 < 0) {
+        flashCardArray[flashCardArray.length - 1].active = true;
+      } else {
+        flashCardArray[cardIndex - 1].active = true;
+      }
+    }
+    renderFlashCards();
+  }
+}
+function deleteFlashCard() {
+  flashCardArray.splice(cardIndex, 1);
+  cardIndex - 1;
+  renderFlashCards();
+}
+function indexFlashCard() {
   for (var i = 0; i < flashCardArray.length; i++) {
     if (flashCardArray[i].active == true) {
       cardIndex = i;
     }
   }
-  if (move === 'next') {
-    cardIndex += 1;
-  }
-  console.log(cardIndex);
-  console.log(flashCardArray);
-  question.innerHTML = flashCardArray[cardIndex].question;
-  answer.innerHTML = flashCardArray[cardIndex].answer;
 }
 exports.default = timerNavigation;
 

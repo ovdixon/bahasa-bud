@@ -1,77 +1,74 @@
-.plan-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 200px 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-      "learning-objective add-task"
-      "manage-tasks manage-tasks";
-  }
-  .learning-objective { 
-      grid-area: learning-objective; 
-      height: 100px;
-      input{
-        width:85%;
-        line-height: 7em;
-        display: block;
-        font-size: 0.8em;
-      }
-      label{
-        font-size: 0.7em;
-        color: rgba(0, 0, 0, 0.3)
-      }
+
+#plan{
+    h1{
+        margin-bottom: 30px;
     }
+}
+
   .add-task { 
-      grid-area: add-task; 
-      height: 100px;
+      margin-bottom: 40px;
       form{
-          .inline-input{
-              display: inline-block;
-          }
-          label{
+        display: flex;
+        justify-content: space-between;
+        .inline-input{
+            display: inline-block;
+            
+        }
+        label{
             font-size: 0.7em;
             color: rgba(0, 0, 0, 0.3);
-          } 
-          input, select{
-            display: block;
-            font-size: 0.8em;
+        } 
+        input, select, button{
+            font-size: 0.7em;
+            font-family: HK Grotesk;
+            //color: rgba(0, 0, 0, 0.3);
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            height: 20px;
+            box-sizing: border-box;        }
+        input::placeholder {
             color: rgba(0, 0, 0, 0.3);
-            
           }
-          
-          #taskInput{
-              width: 150px;
-              margin-right: 15px;
-          }
-          #dueDateInput{
-            margin-right: 15px;
-          }
-          #estimatedTimeInput{
-              width: 40px;
-          }
-          
-          
-      }
+        
+        #taskInput{
+            width: 150px;
+            padding-left: 5px;
+
+        }
+        #estimatedTimeInput{
+            width: 50px;
+        }
+        #dueDateInput{
+            padding-left: 5px;
+        }
+        button{
+            margin-top: 33px;
+            height: 20px;
+            border-color: #F45454;
+            color:#F45454;
+            background-color: transparent;
+        }
     }
-  .manage-tasks { 
-      grid-area: manage-tasks;
-    }
+}
+.manage-tasks { 
+    grid-area: manage-tasks;
+    margin-top: 0;
+}
 
 .covey{
     max-width: 500px;
     margin: 0 auto;
     display: grid;
-    grid-gap: 1rem;
-    margin-top: 50px;
-    margin-left: 20px;
+    grid-gap: 20px;
+    padding: 10px;
     
     .quadrant{
-        background-color: #FFFFFF;
         border: 1px solid darkgray;
         border-radius: 3px;
-        height: 8rem;
+        height: 100px;
         padding: 1rem;
         position: relative;
+        
     }
 
     .delTask{
@@ -88,36 +85,8 @@
         position:absolute;
         top: 10px;
     }
-
-    .quadrant h2{
-        font-size: 0.7em;
-        position:absolute;
-        color: rgba(0, 0, 0, 0.3)
-    }
-
-    .quadrant .urgent{
-        top:-30px;
-        left: 95px;
-    }
-
-    .quadrant .not-urgent{
-        top:-30px;
-        left: 85px;
-    }
-
-    .quadrant .important{
-        top:-110px;
-        left: -45px;
-        transform: rotate(-90deg);
-    }
-
-    .quadrant .not-important{
-        top:60px;
-        left: -305px;
-        transform: rotate(-90deg);
-    }
-
 }
+
 
 @media (min-width: 600px) {
     .covey{ 
@@ -127,6 +96,14 @@
 
 ::-webkit-calendar-picker-indicator{
     margin-left: 0px;
+    filter: invert(70%);
+    
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+
 }
 
 .glyphicon { 

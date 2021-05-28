@@ -11,140 +11,156 @@
 </head>
 
 <body class="app-container">
-
-	<nav class="top-nav">
-		<ul class="nav-links">
-			<li class="nav-item"><a href="#plan" class="active">PLAN</a></li>
-			<hr>
-			<li class="nav-item"><a href="#study">STUDY</a></li>
-			<hr>
-			<li class="nav-item"><a href="#review">REVIEW</a></li>
-		</ul>
-	</nav>
+	<div class="page-navigation">
+		<nav class="top-nav">
+			<ul class="nav-links">
+				<li class="nav-item"><a href="#plan" class="active">Plan</a></li>
+				<hr>
+				<li class="nav-item"><a href="#study">Study</a></li>
+				<hr>
+				<li class="nav-item"><a href="#review">Review</a></li>
+			</ul>
+		</nav>
+		
+	</div>
+	
 
 	<div id = "plan" class="page-container">
-		<h1>Let's  plan out your session</h1>
-		<div class="plan-grid">
-			<div class="learning-objective">
-				<h2>Set learning objective</h2>
-				<form class="objective-form">
-					<label for="objective">What do you want to achieve today:</label>
-					<input type="text" id="objective" name="objective">
-				</form>
-			</div>
 			<div class="add-task">
-				<h2>Add a task</h2>
-				<form class="add-tasks" onsubmit="return false">
+				<h1>Start by adding some learning tasks</h1>
+				<form class="add-tasks" onsubmit="addTaskForm(event)" >
 					<div class="inline-input">
-						<label for="task">Task name:</label>
-						<input type="text" name="task" id="taskInput">
+						<label for="task">Objective:</label>
+						<input type="text" name="task" id="taskInput" placeholder="Learn five new words" required>
 					</div>
 					<div class="inline-input">
 						<label for="task">Priority</label>
-						<select name="priority" id="priorityInput"  >
+						<select name="priority" id="priorityInput"  required>
 							<option value="">Select</option>
 							<option value="Low">Low</option>
 							<option value="Medium">Medium</option>
 							<option value="High">High</option>
 						</select>
-					</div><br>
+					</div>
 					<div class="inline-input">
 						<label for="dueDate">Due date:</label>
-						<input type="date" name = "dueDate" id="dueDateInput" >
+						<input type="date" name = "dueDate" id="dueDateInput" required>
 					</div>
 					<div class="inline-input">
 						<label for="estimatedTime">Time:</label>
-						<input type="number" name="estimatedTime" id="estimatedTimeInput" >
+						<input type="number" name="estimatedTime" id="estimatedTimeInput" placeholder="mins" required>
 						
 					</div>
+					
 					<button  type="submit" id="add-task">Add</button>
 					
 				</form>
+				
 			</div>
+			
 			<div class="manage-tasks">
-				<h2>Manage Tasks:</h2>
+				<h1>Tasks are sorted by importance and urgency below</h1>
 				<div class="covey">
 					<div id='iu' class='quadrant'>
-						<h2 class="urgent">URGENT</h2>
 						<ul id="iu-li"></ul>
 					</div>
 		
 					<div id='nu' class='quadrant'>
-						<h2 class="not-urgent" >NOT URGENT</h2>
 						<ul id="nu-li"></ul>
 					</div>
 		
 					<div id='in' class='quadrant'>
-						<h2 class="important" >IMPORTANT</h2>
 						<ul id="in-li"></ul>
 					</div>
 		
 					<div id='nn' class='quadrant'>
-						<h2 class="not-important" >NOT IMPORTANT</h2>
 						<ul id="nn-li"></ul>
 					</div>
 				</div>
-				
 			</div>
-		  </div>
+
 	</div>
 	
 	<div id = "study" class="page-container">
-		<h1>Let's get to work</h1>
 		<div class="grid-container">
 			<div class="timer">
-				<h2>Timer</h2>
-				<div class="timer-tab" id="classic"><h3 class="active-tab">CLASSIC</h3></div>
-				<div class="timer-tab" id="pomodoro"><h3>POMODORO</h3></div>
-				<div id="classic-container" class="timer-container">
-					<div id="classicTimer">00:00:00</div>
-					<button class="startTimer">Start</button>
-					<button class="pauseTimer">Pause</button>
-					<button class="resetTimer">Reset</button>
+				<h1>Timer</h1>
+				<div class="timer-container">
+					<div class="tabs">
+						<h3 id="classic-tab" class="active-tab">CLASSIC</h3>
+						<h3 id="pomodoro-tab">POMODORO</h3>
+					</div>
+					<div class="timers" id='classic'>
+						<p id="classicTime">00:00:00</p>
+						<div class="timer-controls">
+							<button id="startClassic">Start</button>
+							<button id="pauseClassic">Pause</button>
+							<button id="resetClassic">Reset</button>
+						</div>	
+					</div>
+					<div class="timers" id='pomodoro'>
+						<p id="pomodoroTimer">00:25:00</p>
+						<div class="timer-controls">
+							<button id="startPomodoro">Start</button>
+							<button id="pausePomodoro">Pause</button>
+							<button id="resetPomodoro">Reset</button>
+						</div>
+						
+						<form class="sessionOptions">
+							<label for="session">Session (mins):</label>
+							<input type="number" name="session" id="sessionLength" value="25">
+							<button  type="submit" id="setSession">set</button>
+						</form>
+						<form class="breakOptions">
+							<label for="break">Break (mins):</label>
+							<input type="number" name="break" id="breakLength" value="5">
+							<button  type="submit" id="setBreak">set</button>
+						</form>
+						
+					</div>
+
 				</div>
-				<div id="pomodoro-container" class="timer-container">
-					<div id="pomodoroTimer">00:25:00</div>
-					<button class="startTimer">Start</button>
-					<button class="pauseTimer">Pause</button>
-					<button class="resetTimer">Reset</button><br>
-					<form class="sessionOptions">
-						<label for="session">Session:</label>
-						<input type="number" name="session" id="sessionLength" value="25">
-						<button  type="submit" id="setSession">set</button>
-					</form>
-					<form class="breakOptions">
-						<label for="break">Break:</label>
-						<input type="number" name="break" id="breakLength" value="5">
-						<button  type="submit" id="setBreak">set</button>
-					</form>
-					
-				</div>
-				
 			</div>
 			<div class="tasks">
-				<h2>Tasks</h2>
-				<ul id="task-list"></ul>
+				<h1>Tasks</h1>
+				
+				<div class="tasks-container">
+					<ul id="task-list"></ul>
+				</div>
 			</div>
+
 			<div class="flash-cards">
+				<h1>Flash Cards</h1>
 				<div class="flash-cards-container">
 					<div class="add-card">
 						<form id="flashCardForm">
-							<label for="question">Question</label>
-							<input type="text" name="question" id="cardQuestion">
-							<label for="answer">Answer:</label>
-							<input type="text" name="answer" id="cardAnswer">
+							<div class="stacked-input">
+								<label for="question">Question</label><br>
+								<input type="text" name="question" id="cardQuestion">
+							</div>
+							<div class="stacked-input">
+								<label for="answer">Answer:</label><br>
+								<input type="text" name="answer" id="cardAnswer">
+							</div><br>
+							
+							
 							<button  type="submit" id="addCard">ADD CARD</button>
 						</form>
 						
 					</div>
 					<div class="card-stack">
-						<button id="backCard"><</button>
-						<button id="nextCard">></button>
+						
 						<div class="card">
 							<div class="question">
+								<ul id="qanda"></ul>
 							</div>
-							<div class="answer">
+							<div class="question" id="showAnswer">
+								<h2>SHOW ANSWER</h2>
 							</div>
+						</div>
+						<div class="flash-card-nav">
+							<button id="backCard"><</button>
+							<button id="nextCard">></button>
 						</div>
 						
 					</div>

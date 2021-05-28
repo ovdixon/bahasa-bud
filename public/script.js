@@ -1,6 +1,7 @@
 import pageNavigation from './components/navigation'
 import {addTask} from './components/plan'
-import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, setCardDeck } from './components/study'
+import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, nextFlashCard, renderFlashCards, deleteFlashCard } from './components/study'
+
 
 
 const links = document.querySelectorAll('nav > ul > li > a');
@@ -27,25 +28,30 @@ nav.links.forEach(function(link) {
 
 // ADD TASK
 
-const taskForm = document.querySelector('.add-task');
+const taskForm = document.querySelector('.add-tasks');
 
-document.getElementById('add-task').addEventListener('click', function(event){
+function addTaskForm(event){
   event.preventDefault();
   let task = taskInput.value;
   let estimatedTime = estimatedTimeInput.value;
   let dueDate = dueDateInput.value;
   let priority = priorityInput.options[priorityInput.selectedIndex].value
   addTask(task, dueDate, estimatedTime, priority, false);
-  
-})
+  taskForm.reset();
+  return false;
+}
+
+
+window.addTaskForm = addTaskForm;
 
 // TIMER NAV
 
-const timerContainers = document.querySelectorAll('.timer-container');
-const timerTabs = document.querySelectorAll('.timer-tab');
+const timerContainers = document.querySelectorAll('.timers');
+const timerTabs = document.querySelector('.tabs').querySelectorAll('h3');
 
 
-var timerNav = new timerNavigation(timerTabs, timerContainers);1
+
+var timerNav = new timerNavigation(timerTabs, timerContainers);
 
 timerNav.tabs.forEach(function(tab) {
   tab.addEventListener('click', function(){
@@ -72,20 +78,24 @@ pomodoroTimer(Timer);
 
 const nextCard = document.getElementById('nextCard');
 const backCard = document.getElementById('backCard');
+const deleteCard = document.getElementById('deleteCard');
+
+renderFlashCards();
 
 nextCard.addEventListener('click', function(){
-  setCardDeck('next');
+  nextFlashCard(true);
 })
 
 
 backCard.addEventListener('click', function(){
-  setCardDeck('back');
-  
-
+  nextFlashCard(false);
 })
 
-
-
+/*
+deleteCard.addEventListener('click', function(){
+  deleteFlashCard();
+})
+*/
 
 var addCard = document.getElementById('addCard');
 addCard.addEventListener('click', event => {

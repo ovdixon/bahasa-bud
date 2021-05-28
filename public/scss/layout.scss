@@ -1,16 +1,23 @@
+
 .app-container {
-  background-color: rgb(238, 238, 238);
 }
 
 .page-container {
 	margin-left: auto;
     margin-right: auto;
-	margin-top: 50px;
 	width: 500px;
-	background-color: rgb(247, 247, 247);
+	//background-color: rgb(254, 254, 254);
+	border: 1px solid #D3D3D3;
 	padding: 50px;
-
 	&:not(#plan) {
 		display: none;
 	}
+}
+
+.page-navigation{
+	width: 500px;
+	margin-left: auto;
+    margin-right: auto;
+	//background-color: yellow;
+
 }
