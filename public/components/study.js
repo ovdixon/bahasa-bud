@@ -170,8 +170,27 @@ export function deleteFlashCard(){
     flashCardArray.splice(cardIndex, 1);
     cardIndex - 1;
     renderFlashCards();
+}
+
+export function emptyTaskList(){
+    let taskList = document.getElementById('task-list');
+    let emptyList = document.createElement('li');
+    emptyList.textContent = "Add some tasks"
+    taskList.appendChild(emptyList);
+}
+
+export function getAcronym(words){
+    
+    const generator = require('@devdhera/acronym');
+    let showAcronym = document.getElementById('showAcronym');
 
 
+    generator(words, (err, resp) => {
+        if (err) {
+        console.log(err);
+    }
+        showAcronym.textContent = resp;
+    });
 }
 
 function indexFlashCard(){

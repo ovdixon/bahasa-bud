@@ -512,6 +512,16 @@ addCard.addEventListener('click', event => {
   let answer = cardAnswer.value;
   _componentsStudy.addFlashCard(question, answer);
 });
+_componentsStudy.emptyTaskList();
+// ACRONYM MAKER
+var timerNav = new _componentsStudyDefault.default(timerTabs, timerContainers);
+var generateAcronym = document.getElementById('generateAcronym');
+generateAcronym.addEventListener('click', event => {
+  event.preventDefault();
+  let words = acronymWords.value;
+  console.log(words);
+  _componentsStudy.getAcronym(words);
+});
 
 },{"./components/navigation":"2K1cj","./components/plan":"41ZMX","./components/study":"6VOPn","easytimer.js":"3bCzH","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"2K1cj":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
@@ -9200,6 +9210,12 @@ _parcelHelpers.export(exports, "nextFlashCard", function () {
 _parcelHelpers.export(exports, "deleteFlashCard", function () {
   return deleteFlashCard;
 });
+_parcelHelpers.export(exports, "emptyTaskList", function () {
+  return emptyTaskList;
+});
+_parcelHelpers.export(exports, "getAcronym", function () {
+  return getAcronym;
+});
 require("postcss");
 class timerNavigation {
   constructor(tabs, containers) {
@@ -9343,6 +9359,22 @@ function deleteFlashCard() {
   cardIndex - 1;
   renderFlashCards();
 }
+function emptyTaskList() {
+  let taskList = document.getElementById('task-list');
+  let emptyList = document.createElement('li');
+  emptyList.textContent = "Add some tasks";
+  taskList.appendChild(emptyList);
+}
+function getAcronym(words) {
+  const generator = require('@devdhera/acronym');
+  let showAcronym = document.getElementById('showAcronym');
+  generator(words, (err, resp) => {
+    if (err) {
+      console.log(err);
+    }
+    showAcronym.textContent = resp;
+  });
+}
 function indexFlashCard() {
   for (var i = 0; i < flashCardArray.length; i++) {
     if (flashCardArray[i].active == true) {
@@ -9352,7 +9384,31 @@ function indexFlashCard() {
 }
 exports.default = timerNavigation;
 
-},{"postcss":"4txsy","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"3bCzH":[function(require,module,exports) {
+},{"postcss":"4txsy","@devdhera/acronym":"1Qi5X","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}],"1Qi5X":[function(require,module,exports) {
+"use strict";
+
+module.exports = function acronym(sentence, callback) {
+    return new Promise((resolve, reject) => {
+        if (sentence.length === 0) {
+            reject('String, Please! e.g. "for your information"');
+            return callback('String, Please! e.g. "for your information"');
+        }
+        else if (typeof sentence === 'function') {
+            callback = sentence;
+
+            reject('¯\\_(ツ)_/¯');
+            return callback('¯\\_(ツ)_/¯');
+        }
+        else {
+            const words = sentence.split(' ');
+            const acronym = words.map((word) => word[0]);
+
+            resolve(acronym.join(''));
+            return callback(null, acronym.join(''));
+        }
+    });
+}
+},{}],"3bCzH":[function(require,module,exports) {
 var define;
 /**
 * easytimer.js

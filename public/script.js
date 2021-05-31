@@ -1,6 +1,6 @@
 import pageNavigation from './components/navigation'
 import {addTask} from './components/plan'
-import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, nextFlashCard, renderFlashCards, deleteFlashCard } from './components/study'
+import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, nextFlashCard, renderFlashCards, emptyTaskList, getAcronym } from './components/study'
 
 
 
@@ -104,4 +104,21 @@ addCard.addEventListener('click', event => {
   let answer = cardAnswer.value;
   addFlashCard(question, answer);
 });
+
+emptyTaskList();
+
+
+// ACRONYM MAKER
+
+
+var timerNav = new timerNavigation(timerTabs, timerContainers);
+
+var generateAcronym = document.getElementById('generateAcronym');
+generateAcronym.addEventListener('click', event => {
+  event.preventDefault();
+  let words = acronymWords.value;
+  console.log(words)
+  getAcronym(words);
+});
+
 

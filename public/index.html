@@ -3,8 +3,8 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>repl.it</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1"> 
+	<title>Bahasa Buddy</title>
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="./scss/main.scss" rel="stylesheet" type="text/css">
@@ -12,6 +12,9 @@
 
 <body class="app-container">
 	<div class="page-navigation">
+		<div class="logo">
+
+		</div>
 		<nav class="top-nav">
 			<ul class="nav-links">
 				<li class="nav-item"><a href="#plan" class="active">Plan</a></li>
@@ -167,9 +170,22 @@
 				</div>
 			</div>
 			<div class="music">
-				
+				<h1>Music Player</h1>
+				<div class="music-container">
+					<iframe src="https://open.spotify.com/embed/playlist/2Fnfw3f8C3RpQ0JmGNvx58" width="225" height="290" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+				</div>
 			</div>
 			<div class="lookup">
+				<h1>Acronym Maker</h1>
+				<div class="acronym-container">
+					<form onsubmit="addTaskForm(event)">
+						<label for="words">Enter words or phrases:</label><br>
+						<input type="text" name="words" id="acronymWords">
+						<button  type="submit" id="generateAcronym">GO</button>
+					</form>
+					<p id="showAcronym"></p>
+
+				</div>
 				
 			</div>
 		  </div>
@@ -184,5 +200,10 @@
 	
 </body>
 <script src="script.js"></script>
+<script>  
+	window.onbeforeunload = function () {
+		window.scrollTo(0, 0);
+	}; 
+</script>
 
 </html>

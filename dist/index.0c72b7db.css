@@ -152,6 +152,7 @@ nav .nav-links hr {
   display: grid;
   grid-gap: 20px;
   padding: 10px;
+  grid-template-columns: repeat(2, 1fr);
 }
 .covey .quadrant {
   border: 1px solid darkgray;
@@ -172,9 +173,9 @@ nav .nav-links hr {
   position: absolute;
   top: 10px;
 }
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .covey {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 ::-webkit-calendar-picker-indicator {
@@ -195,11 +196,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 20px;
   padding: 10px;
   grid-template-areas: "timer tasks" "flash-cards flash-cards" "music lookup";
+}
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-areas: "timer" "tasks" "flash-cards" "music" "lookup";
+  }
 }
 button {
   font-size: 0.7em;
@@ -340,15 +344,30 @@ button {
 .music {
   grid-area: music;
 }
+.music .music-container {
+  border: 1px solid darkgray;
+  border-radius: 3px;
+  padding: 12px;
+  padding-bottom: 2px;
+}
 .lookup {
   grid-area: lookup;
 }
-@media only screen and (max-width: 600px) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 1em;
-    grid-row-gap: 100px;
-  }
+.lookup .acronym-container {
+  border: 1px solid darkgray;
+  border-radius: 3px;
+  height: 270px;
+  padding: 20px;
+}
+.lookup .acronym-container label, .lookup .acronym-container input {
+  font-size: 0.7em;
+  color: rgba(0, 0, 0, 0.3);
+}
+.lookup .acronym-container input, .lookup .acronym-container button {
+  border: 1px solid darkgray;
+  border-radius: 3px;
+  height: 20px;
+  box-sizing: border-box;
+  width: auto;
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */

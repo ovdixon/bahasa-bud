@@ -1,15 +1,23 @@
-
-
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 20px;
     padding: 10px;
     grid-template-areas:
         "timer tasks"
         "flash-cards flash-cards"
         "music lookup";
+}
+
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-areas:
+            'timer'
+            'tasks'
+            'flash-cards'
+            'music'
+            'lookup';
+    }
 }
 
 button{
@@ -83,7 +91,7 @@ button{
 
 
 
-    .flash-cards { 
+.flash-cards { 
         grid-area: flash-cards; 
         .flash-cards-container {
             border: 1px solid darkgray;
@@ -167,21 +175,35 @@ button{
 
     .music { 
         grid-area: music; 
+        .music-container{
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            padding: 12px;
+            padding-bottom: 2px;
+        }
+        
     }
       
     .lookup { 
         grid-area: lookup; 
+        .acronym-container{
+            border: 1px solid darkgray;
+            border-radius: 3px;
+            height:270px;
+            padding: 20px;
+            label, input{
+                font-size: 0.7em;
+                color: rgba(0, 0, 0, 0.3);
+                
+            }
+            input, button{
+                border: 1px solid darkgray;
+                border-radius: 3px;
+                height: 20px;
+                box-sizing: border-box;
+                width: auto;
+            }
+        }
     }
     
   
-  
-
-
-  @media only screen and (max-width: 600px) {
-    .grid-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      padding: 1em;
-      grid-row-gap: 100px;
-    }
-  }
