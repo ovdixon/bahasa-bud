@@ -184,12 +184,13 @@ export function getAcronym(words){
     const generator = require('@devdhera/acronym');
     let showAcronym = document.getElementById('showAcronym');
 
-
     generator(words, (err, resp) => {
         if (err) {
         console.log(err);
     }
-        showAcronym.textContent = resp;
+        let listItem = document.createElement('li');
+        listItem.textContent = resp +" = "+words;
+        showAcronym.appendChild(listItem);
     });
 }
 

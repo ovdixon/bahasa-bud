@@ -22,3 +22,16 @@
 
 }
 
+
+@media (max-width: 600px) {
+    .page-container{ 
+    width: auto;
+  }
+  .page-navigation{
+	  width: auto;
+	  .top-nav{
+		  width: auto;
+		  
+	  }
+  }
+}

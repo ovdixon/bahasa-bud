@@ -9372,7 +9372,9 @@ function getAcronym(words) {
     if (err) {
       console.log(err);
     }
-    showAcronym.textContent = resp;
+    let listItem = document.createElement('li');
+    listItem.textContent = resp + " = " + words;
+    showAcronym.appendChild(listItem);
   });
 }
 function indexFlashCard() {

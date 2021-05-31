@@ -14,6 +14,18 @@
   margin-left: auto;
   margin-right: auto;
 }
+@media (max-width: 600px) {
+  .page-container {
+    width: auto;
+  }
+
+  .page-navigation {
+    width: auto;
+  }
+  .page-navigation .top-nav {
+    width: auto;
+  }
+}
 @font-face {
   font-family: HK Grotesk;
   src: url("https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FHKGrotesk-Regular.otf?v=1603136326027") format("opentype");
@@ -142,6 +154,14 @@ nav .nav-links hr {
   color: #F45454;
   background-color: transparent;
 }
+@media (max-width: 600px) {
+  .add-task form {
+    flex-direction: column;
+  }
+  .add-task form button {
+    width: auto;
+  }
+}
 .manage-tasks {
   grid-area: manage-tasks;
   margin-top: 0;
@@ -152,7 +172,7 @@ nav .nav-links hr {
   display: grid;
   grid-gap: 20px;
   padding: 10px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "iu nu" "in nn";
 }
 .covey .quadrant {
   border: 1px solid darkgray;
@@ -160,6 +180,18 @@ nav .nav-links hr {
   height: 100px;
   padding: 1rem;
   position: relative;
+}
+.covey #iu {
+  grid-area: iu;
+}
+.covey #nu {
+  grid-area: nu;
+}
+.covey #in {
+  grid-area: in;
+}
+.covey #nn {
+  grid-area: nn;
 }
 .covey .delTask {
   background-color: transparent;
@@ -175,7 +207,7 @@ nav .nav-links hr {
 }
 @media (max-width: 600px) {
   .covey {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas: "iu" "nu" "in" "nn";
   }
 }
 ::-webkit-calendar-picker-indicator {
@@ -199,11 +231,6 @@ input[type=number]::-webkit-outer-spin-button {
   grid-gap: 20px;
   padding: 10px;
   grid-template-areas: "timer tasks" "flash-cards flash-cards" "music lookup";
-}
-@media (max-width: 600px) {
-  .grid-container {
-    grid-template-areas: "timer" "tasks" "flash-cards" "music" "lookup";
-  }
 }
 button {
   font-size: 0.7em;
@@ -272,8 +299,6 @@ button {
   border-radius: 3px;
   height: 200px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas: "add-card card-stack" "add-card card-stack";
 }
@@ -369,5 +394,16 @@ button {
   height: 20px;
   box-sizing: border-box;
   width: auto;
+}
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-areas: "timer" "tasks" "flash-cards" "music" "lookup";
+    margin-left: -55px;
+  }
+
+  .flash-cards-container .card-stack {
+    margin-left: 10px;
+    margin-right: 20px;
+  }
 }
 /*# sourceMappingURL=index.0c72b7db.css.map */

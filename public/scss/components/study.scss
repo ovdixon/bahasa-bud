@@ -9,16 +9,6 @@
 }
 
 
-@media (max-width: 600px) {
-    .grid-container {
-        grid-template-areas:
-            'timer'
-            'tasks'
-            'flash-cards'
-            'music'
-            'lookup';
-    }
-}
 
 button{
     font-size: 0.7em;
@@ -98,8 +88,6 @@ button{
             border-radius: 3px;
             height: 200px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
             gap: 0px 0px;
             grid-template-areas:
               "add-card card-stack"
@@ -203,6 +191,28 @@ button{
                 box-sizing: border-box;
                 width: auto;
             }
+        }
+    }
+
+
+    @media (max-width: 600px) {
+        .grid-container {
+            grid-template-areas:
+                'timer'
+                'tasks'
+                'flash-cards'
+                'music'
+                'lookup';
+            margin-left: -55px;
+        }
+        .flash-cards-container{
+            .card-stack{
+                margin-left: 10px;
+                margin-right: 20px;
+            }
+        }
+        .music-container{
+            
         }
     }
     
