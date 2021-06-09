@@ -1,8 +1,6 @@
 import pageNavigation from './components/navigation'
 import {addTask} from './components/plan'
-import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, nextFlashCard, renderFlashCards, emptyTaskList, getAcronym } from './components/study'
-
-
+import timerNavigation, { classicTimer, pomodoroTimer, addFlashCard, nextFlashCard, renderFlashCards, emptyTaskList, getAcronym, printFlashCards } from './components/study'
 
 const links = document.querySelectorAll('nav > ul > li > a');
 const pages = document.querySelectorAll('.page-container');
@@ -120,5 +118,4 @@ generateAcronym.addEventListener('click', event => {
   console.log(words)
   getAcronym(words);
 });
-
 

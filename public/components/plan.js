@@ -112,8 +112,17 @@ function showTasks(){
   while(taskList.firstChild) taskList.removeChild(taskList.firstChild);
 
   for (var i=0; i<storedTasks.length; i++){
-      let taskValue = storedTasks[i].taskDescription;
+      var taskValue = storedTasks[i].taskDescription;
       let taskCompleted = storedTasks[i].completionStatus;
+      let taskUrgency = urgencyCalc(storedTasks[i].dueDate);
+      let Taskimportance = importanceCalc(storedTasks[i].priorityRating);
+      if (taskUrgency === true){
+        taskValue += "  ⏳";
+      }
+      if (Taskimportance === true){
+        taskValue += " ❗️";
+      }
+
       let listItem = document.createElement('li');
       listItem.classList.add('uncompleted');
       listItem.textContent = taskValue;

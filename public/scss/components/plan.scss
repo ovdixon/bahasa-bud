@@ -83,9 +83,18 @@
         border: 1px solid darkgray;
         border-radius: 3px;
         height: 100px;
+        width: 200px;
         padding: 1rem;
         position: relative;
         
+    }
+
+    h3{
+        font-size: 0.7em;
+        color: rgba(0, 0, 0, 0.3);
+        margin-top: -5px;
+        text-align: center;
+
     }
 
     #iu{
@@ -109,6 +118,7 @@
     }
 
     .quadrant ul{
+        margin-top: 20px;
         margin-left: -2.5em;
         list-style: none;
         font-size: 0.8em;

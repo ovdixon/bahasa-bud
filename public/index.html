@@ -8,6 +8,9 @@
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="./scss/main.scss" rel="stylesheet" type="text/css">
+
+	
+
 </head>
 
 <body class="app-container">
@@ -17,11 +20,11 @@
 		</div>
 		<nav class="top-nav">
 			<ul class="nav-links">
-				<li class="nav-item"><a href="#plan" class="active">Plan</a></li>
+				<li class="nav-item"><a id="planPage" href="#plan" class="active">Plan</a></li>
 				<hr>
-				<li class="nav-item"><a href="#study">Study</a></li>
+				<li class="nav-item"><a id="studyPage" href="#study">Study</a></li>
 				<hr>
-				<li class="nav-item"><a href="#review">Review</a></li>
+				<li class="nav-item"><a id="reviewPage" href="#review">Review</a></li>
 			</ul>
 		</nav>
 		
@@ -30,6 +33,7 @@
 
 	<div id = "plan" class="page-container">
 			<div class="add-task">
+				<div id="star-rating"></div>
 				<h1>Start by adding some learning tasks</h1>
 				<form class="add-tasks" onsubmit="addTaskForm(event)" >
 					<div class="inline-input">
@@ -65,22 +69,30 @@
 				<h1>Tasks are sorted by importance and urgency below</h1>
 				<div class="covey">
 					<div id='iu' class='quadrant'>
+						<h3>Urgent and Important</h3>
 						<ul id="iu-li"></ul>
 					</div>
 		
 					<div id='nu' class='quadrant'>
+						<h3>Not Urgent but Important</h3>
 						<ul id="nu-li"></ul>
 					</div>
 		
 					<div id='in' class='quadrant'>
+						<h3>Urgent but Not Important</h3>
 						<ul id="in-li"></ul>
 					</div>
 		
 					<div id='nn' class='quadrant'>
+						<h3>Not Urgent and Not Important</h3>
 						<ul id="nn-li"></ul>
 					</div>
 				</div>
 			</div>
+			<div class="bottomNav">
+				<button class="nextNavButton" onclick="document.getElementById('studyPage').click();">NEXT</button>
+			</div>
+			
 
 	</div>
 	
@@ -102,7 +114,7 @@
 						</div>	
 					</div>
 					<div class="timers" id='pomodoro'>
-						<p id="pomodoroTimer">00:25:00</p>
+						<p id="pomodoroTimer">00:00:00</p>
 						<div class="timer-controls">
 							<button id="startPomodoro">Start</button>
 							<button id="pausePomodoro">Pause</button>
@@ -112,12 +124,10 @@
 						<form class="sessionOptions">
 							<label for="session">Session (mins):</label>
 							<input type="number" name="session" id="sessionLength" value="25">
-							<button  type="submit" id="setSession">set</button>
 						</form>
 						<form class="breakOptions">
 							<label for="break">Break (mins):</label>
 							<input type="number" name="break" id="breakLength" value="5">
-							<button  type="submit" id="setBreak">set</button>
 						</form>
 						
 					</div>
@@ -128,6 +138,10 @@
 				<h1>Tasks</h1>
 				
 				<div class="tasks-container">
+					<div class="tasks-legend">
+						<h3>Urgent = ⏳</h3>
+						<h3>Important = ❗️</h3>
+					</div>
 					<ul id="task-list"></ul>
 				</div>
 			</div>
@@ -191,21 +205,37 @@
 				
 			</div>
 		  </div>
+
+		  <div class="bottomNav">
+			<button class="backNavButton" onclick="document.getElementById('planPage').click();">BACK</button>
+			<button class="nextNavButton" onclick="document.getElementById('reviewPage').click();">NEXT</button>
+		</div>
 		
 	</div>
 
 	<div id = "review" class="page-container">
-		<h1>Let's review today's session</h1>
+		<h1>What did you achieve in the session?</h1>
+		<form class = "review-session">
+			<textarea id="w3review" name="w3review" rows="5" placeholder="I learnt five new words and ..."></textarea>
+		</form>
+
+		<h1>Let's give today a rating!</h1>
+		
+		
+
+		<div class="bottomNav">
+			<button class="backNavButton" onclick="document.getElementById('studyPage').click();">BACK</button>
+			<button class="nextNavButton" onclick="location.reload();">DONE</button>
+		</div>
+		
 	</div>
 
 	
 	
 </body>
+
+
 <script src="script.js"></script>
-<script>  
-	window.onbeforeunload = function () {
-		window.scrollTo(0, 0);
-	}; 
-</script>
+
 
 </html>

@@ -73,7 +73,19 @@ button{
         height: 240px;
         .completed{
             text-decoration: line-through;
-        } 
+        }
+        .tasks-legend{
+            display: flex;
+            justify-content: space-evenly;
+            height: 48px;
+            border-bottom: 1px solid darkgray;
+            h3{
+                margin-top: auto;
+                margin-bottom: auto;
+                font-size: 0.7em;
+                display: inline-block;
+            }
+        }
     }
     
 }

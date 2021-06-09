@@ -27,6 +27,24 @@ nav {
   }
 }
 
+.bottomNav{
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  justify-content:space-evenly;
+
+  button {
+    display: inline-block;
+  }
+  
+  .nextNavButton{
+    color: #F45454;
+    border: 1px solid #F45454
+  }
+
+  
+}
+
 
 
 

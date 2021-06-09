@@ -21,7 +21,12 @@
     "@devdhera/acronym": "^1.1.0",
     "easytimer.js": "^4.3.4",
     "express": "^4.17.1",
-    "sass": "^1.32.11"
+    "make": "^0.8.1",
+    "pdf": "^0.1.0",
+    "pdfmake": "^0.1.71",
+    "rater-js": "^1.0.1",
+    "sass": "^1.32.11",
+    "star-rating.js": "^4.1.4"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0-beta.2",
