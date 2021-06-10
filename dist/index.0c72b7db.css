@@ -14,6 +14,7 @@
   margin-left: auto;
   margin-right: auto;
 }
+/* mobile responsiveness */
 @media (max-width: 600px) {
   .page-container {
     width: auto;
@@ -76,6 +77,7 @@ h5 {
 small, .text_small {
   font-size: 0.8rem;
 }
+/* TOP NAVIGATION */
 nav {
   width: 500px;
   display: flex;
@@ -103,6 +105,7 @@ nav .nav-links hr {
   height: 0;
   width: 12px;
 }
+/* BOTTOM NAVIGATION */
 .bottomNav {
   margin-top: 20px;
   display: flex;
@@ -116,6 +119,7 @@ nav .nav-links hr {
   color: #F45454;
   border: 1px solid #F45454;
 }
+/* LOGO HEADER */
 .logo-container {
   display: flex;
   align-items: center;
@@ -133,6 +137,7 @@ nav .nav-links hr {
 #plan h1 {
   margin-bottom: 30px;
 }
+/* TASK FORM */
 .add-task {
   margin-bottom: 40px;
 }
@@ -181,6 +186,7 @@ nav .nav-links hr {
   color: #F45454;
   background-color: transparent;
 }
+/* TASK FORM MOBILE */
 @media (max-width: 600px) {
   .add-task form {
     flex-direction: column;
@@ -193,6 +199,7 @@ nav .nav-links hr {
   grid-area: manage-tasks;
   margin-top: 0;
 }
+/* COVEY QUADRANTS */
 .covey {
   max-width: 500px;
   margin: 0 auto;
@@ -240,6 +247,7 @@ nav .nav-links hr {
   position: absolute;
   top: 10px;
 }
+/* COVEY QUADRANTS MOBILE */
 @media (max-width: 600px) {
   .covey {
     grid-template-areas: "iu" "nu" "in" "nn";
@@ -253,14 +261,7 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
 }
-.glyphicon {
-  color: rgba(0, 0, 0, 0.1);
-  position: relative;
-  left: -27px;
-  top: 2px;
-  cursor: pointer;
-  padding: 6px;
-}
+/* STUDY PAGE GRID */
 .grid-container {
   display: grid;
   grid-gap: 20px;
@@ -274,6 +275,7 @@ button {
   border-radius: 3px;
   background-color: transparent;
 }
+/* TIMERS */
 .timer {
   grid-area: timer;
 }
@@ -315,6 +317,7 @@ button {
 .timer .timer-container #pomodoro {
   display: none;
 }
+/* TASK LIST */
 .tasks {
   grid-area: tasks;
 }
@@ -338,6 +341,7 @@ button {
   font-size: 0.7em;
   display: inline-block;
 }
+/* FLASH CARDS */
 .flash-cards {
   grid-area: flash-cards;
 }
@@ -413,6 +417,7 @@ button {
 .flash-cards .card-stack .card #showAnswer:hover h2 {
   display: none;
 }
+/* SPOTIFY MUSIC */
 .music {
   grid-area: music;
 }
@@ -422,6 +427,7 @@ button {
   padding: 12px;
   padding-bottom: 2px;
 }
+/* ACRONYM */
 .lookup {
   grid-area: lookup;
 }
@@ -453,6 +459,7 @@ button {
     margin-right: 20px;
   }
 }
+/* REVIEW INPUT */
 .review-session textarea {
   width: 100%;
   resize: none;
@@ -460,7 +467,8 @@ button {
   font-family: HK Grotesk;
   padding: 10px;
 }
-/* Adapted from https://codepen.io/hesguru/pen/BaybqXv */
+/* PURE CSS FOR STAR RATING
+Adapted from https://codepen.io/hesguru/pen/BaybqXv */
 .rating-star {
   font-size: 3em;
   direction: rtl;

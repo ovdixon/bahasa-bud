@@ -9089,8 +9089,10 @@ _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "addTask", function () {
   return addTask;
 });
+// array to store task objects
 var taskListArray = [];
 function addTask(taskDescription, dueDate, estimatedTime, priorityRating, completionStatus) {
+  // new task object
   let task = {
     taskDescription,
     dueDate,
@@ -9098,13 +9100,17 @@ function addTask(taskDescription, dueDate, estimatedTime, priorityRating, comple
     estimatedTime,
     completionStatus
   };
+  // add newly created task to array
   taskListArray.push(task);
+  // set task lists to local storage
   setStorage();
+  // render covery quadrants with new task
   renderCovey(task);
 }
 function renderCovey(task) {
   let item = document.createElement('li');
   item.innerHTML = task.taskDescription;
+  // urgency and importance values decide which quadrant the task will be placed
   let urgent = urgencyCalc(task.dueDate);
   let important = importanceCalc(task.priorityRating);
   if (urgent && important) {
@@ -9117,13 +9123,16 @@ function renderCovey(task) {
     var taskList = document.getElementById('nn-li');
   }
   taskList.appendChild(item);
+  // create to remove task from covey and task list
   let delButton = document.createElement("button");
   let delButtonText = document.createTextNode("x");
   delButton.appendChild(delButtonText);
   delButton.classList.add("delTask");
   item.appendChild(delButton);
+  // if remove button clicked remove from array and
   delButton.addEventListener("click", function (event) {
     event.preventDefault;
+    // prevent page reload on click
     item.remove();
     let index = taskListArray.indexOf(task);
     if (index !== -1) {
@@ -9132,6 +9141,7 @@ function renderCovey(task) {
     setStorage();
   });
 }
+// function to calculate the importance of task based on input values
 function importanceCalc(rating) {
   if (rating === "High" || rating === "Medium") {
     return true;
@@ -9139,16 +9149,12 @@ function importanceCalc(rating) {
     return false;
   }
 }
-[{
-  "taskDescription": "hey",
-  "dueDate": "",
-  "priorityRating": "",
-  "estimatedTime": "",
-  "completionStatus": false
-}];
+// function to calcualte task urgency based on input
 function urgencyCalc(taskDate) {
   let urgencyDate = averageDate(taskListArray);
+  // set an urgency date with function
   let dueDate = new Date(taskDate);
+  // if duedate is sooner than urgency date the task is considered urgent
   if (dueDate < urgencyDate) {
     return true;
   } else {
@@ -9157,6 +9163,9 @@ function urgencyCalc(taskDate) {
 }
 function averageDate(taskListArray) {
   let len = taskListArray.length;
+  // if more than one task added
+  // find the average due date of tasks and that becomes the urgency date
+  // tasks with a due date less than the average are considerd urgent
   if (len > 1) {
     let dateSum = 0;
     for (let i = 0; i < len; i++) {
@@ -9166,19 +9175,26 @@ function averageDate(taskListArray) {
     let averageUnix = dateSum / len * 1000;
     let averageDate = new Date(averageUnix);
     return averageDate;
-  } else {
+      // if no tasks added
+    // urgency date becomes deafualts to a date in 3 days time
+} else // if no tasks added
+  // urgency date becomes deafualts to a date in 3 days time
+  {
     let someDate = new Date();
     let daysToAdd = 3;
     someDate.setDate(someDate.getDate() + daysToAdd);
     return someDate;
   }
 }
+// tasks are stored as an array of objects
+// array is first stringified before JSON is set to storage
 function setStorage() {
   localStorage.setItem("tasks", JSON.stringify(taskListArray));
-  let storedTasks = JSON.parse(localStorage.getItem("tasks"));
+  // call function to update tasks list on study page
   showTasks();
 }
 function showTasks() {
+  // get array of tasks from local storage
   let storedTasks = JSON.parse(localStorage.getItem("tasks"));
   let taskList = document.getElementById('task-list');
   while (taskList.firstChild) taskList.removeChild(taskList.firstChild);
@@ -9187,6 +9203,7 @@ function showTasks() {
     let taskCompleted = storedTasks[i].completionStatus;
     let taskUrgency = urgencyCalc(storedTasks[i].dueDate);
     let Taskimportance = importanceCalc(storedTasks[i].priorityRating);
+    // display indicators for urgency & importance of tasks
     if (taskUrgency === true) {
       taskValue += "  ⏳";
     }
@@ -9197,7 +9214,8 @@ function showTasks() {
     listItem.classList.add('uncompleted');
     listItem.textContent = taskValue;
     taskList.appendChild(listItem);
-    let iter = i;
+    // if task is clicked set it as completed
+    // tasks with class completed are then styles with a strikethrough
     listItem.addEventListener('click', event => {
       if (listItem.className === 'uncompleted') {
         listItem.classList.remove('uncompleted');
@@ -9306,7 +9324,6 @@ function pomodoroTimer(Timer) {
   // listen to change to break time and update html accordingly
   setBreak.addEventListener('input', function (evt) {
     pomodoroBreak = this.value;
-    document.getElementById('pomodoroTimer').innerHTML = "00:" + pomodoroBreak + ":00";
   });
   // create new easytimer.js object
   var pomodoro = new Timer();
@@ -9331,17 +9348,17 @@ function pomodoroTimer(Timer) {
     pomodoro.reset();
     pomodoro.pause();
   });
-  pomodoro.addEventListener('secondsUpdated', function (e) {
-    document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
-  });
-  // once session time is finished start break timer
   pomodoro.addEventListener('targetAchieved', function (e) {
+    pomodoro.stop();
     pomodoro.start({
       countdown: true,
       startValues: {
         minutes: pomodoroBreak
       }
     });
+  });
+  pomodoro.addEventListener('secondsUpdated', function (e) {
+    document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
   });
 }
 // array to store card objects

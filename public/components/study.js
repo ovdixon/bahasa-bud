@@ -88,7 +88,6 @@ export function pomodoroTimer(Timer){
     // listen to change to break time and update html accordingly
     setBreak.addEventListener('input', function (evt) {
         pomodoroBreak = this.value;
-        document.getElementById('pomodoroTimer').innerHTML = "00:"+pomodoroBreak+":00";
     });
 
     // create new easytimer.js object
@@ -109,15 +108,18 @@ export function pomodoroTimer(Timer){
         pomodoro.reset();
         pomodoro.pause();
     });
+    
+    pomodoro.addEventListener('targetAchieved', function (e) {
+        pomodoro.stop();
+        pomodoro.start({countdown: true, startValues: {minutes: pomodoroBreak}});
+    });
 
     pomodoro.addEventListener('secondsUpdated', function (e) {
         document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
     }); 
 
     // once session time is finished start break timer
-    pomodoro.addEventListener('targetAchieved', function (e) {
-        pomodoro.start({countdown: true, startValues: {minutes: pomodoroBreak}});
-    });
+    
 }
 // array to store card objects
 var flashCardArray = [];

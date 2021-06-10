@@ -1,3 +1,6 @@
+
+
+/* STUDY PAGE GRID */
 .grid-container {
     display: grid;
     grid-gap: 20px;
@@ -8,8 +11,6 @@
         "music lookup";
 }
 
-
-
 button{
     font-size: 0.7em;
     font-family: HK Grotesk;
@@ -18,7 +19,7 @@ button{
     background-color: transparent;
 }
 
-
+/* TIMERS */
 .timer {
     grid-area: timer;
 
@@ -35,7 +36,7 @@ button{
             display: flex;
             justify-content: space-around;
             .active-tab{
-                font-weight: bold;
+                font-weight: bold; // styled to indicate active timer tab
             }
         }
         .timers{
@@ -64,7 +65,7 @@ button{
     }
 }
         
-
+/* TASK LIST */
 .tasks {
     grid-area: tasks;
     .tasks-container{
@@ -92,7 +93,7 @@ button{
 
 
 
-
+/* FLASH CARDS */
 .flash-cards { 
         grid-area: flash-cards; 
         .flash-cards-container {
@@ -161,6 +162,7 @@ button{
                     z-index: 9;
                     background-color: rgb(190, 190, 190);
                   }
+                  // hovering over bottom of card should reveal answer
                   #showAnswer:hover{
                     background-color: rgba(0,0,0,0);
                     h2{
@@ -173,6 +175,7 @@ button{
             }
     }
 
+    /* SPOTIFY MUSIC */
     .music { 
         grid-area: music; 
         .music-container{
@@ -183,7 +186,7 @@ button{
         }
         
     }
-      
+      /* ACRONYM */
     .lookup { 
         grid-area: lookup; 
         .acronym-container{
@@ -206,7 +209,7 @@ button{
         }
     }
 
-
+    // RE-ARRANGE STUDY GRID FOR MOBILE */
     @media (max-width: 600px) {
         .grid-container {
             grid-template-areas:
@@ -222,9 +225,6 @@ button{
                 margin-left: 10px;
                 margin-right: 20px;
             }
-        }
-        .music-container{
-            
         }
     }
     

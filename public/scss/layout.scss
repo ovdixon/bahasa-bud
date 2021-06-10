@@ -1,12 +1,7 @@
-
-.app-container {
-}
-
 .page-container {
 	margin-left: auto;
     margin-right: auto;
 	width: 500px;
-	//background-color: rgb(254, 254, 254);
 	border: 1px solid #D3D3D3;
 	padding: 50px;
 	&:not(#plan) {
@@ -18,11 +13,9 @@
 	width: 500px;
 	margin-left: auto;
     margin-right: auto;
-	//background-color: yellow;
-
 }
 
-
+/* mobile responsiveness */
 @media (max-width: 600px) {
     .page-container{ 
     width: auto;

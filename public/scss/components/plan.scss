@@ -4,7 +4,7 @@
         margin-bottom: 30px;
     }
 }
-
+/* TASK FORM */
   .add-task { 
       margin-bottom: 40px;
       form{
@@ -52,7 +52,7 @@
     }
 }
 
-
+/* TASK FORM MOBILE */
 @media (max-width: 600px) {
     .add-task{
         form{
@@ -69,6 +69,7 @@
     margin-top: 0;
 }
 
+/* COVEY QUADRANTS */
 .covey{
     max-width: 500px;
     margin: 0 auto;
@@ -127,7 +128,7 @@
     }
 }
 
-
+/* COVEY QUADRANTS MOBILE */
 @media (max-width: 600px) {
     .covey{ 
     grid-template-areas: 
@@ -139,27 +140,16 @@
     }
   }
 
+// style add task calender input
 ::-webkit-calendar-picker-indicator{
     margin-left: 0px;
     filter: invert(70%);
     
 }
 
+// style input number spinner
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {  
    opacity: 1;
 
 }
-
-.glyphicon { 
-	color: rgba(0,0,0,0.1); 
-	position: relative;
-	left: -27px;
-	top: 2px;
-	cursor: pointer;
-	padding: 6px;
-}
-
-
-
-

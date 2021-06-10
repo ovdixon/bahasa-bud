@@ -1,3 +1,4 @@
+/* TOP NAVIGATION */
 nav {
   width: 500px;
   display: flex;
@@ -12,6 +13,7 @@ nav {
       color: #D3D3D3;
       font-size: 1.1em;
       padding: 1em;
+      // if link has active class then color red
       &.active{  
         color: #F45454;
       }
@@ -26,6 +28,7 @@ nav {
     }
   }
 }
+/* BOTTOM NAVIGATION */
 
 .bottomNav{
   margin-top: 20px;
@@ -42,7 +45,7 @@ nav {
     border: 1px solid #F45454
   }
 }
-
+/* LOGO HEADER */
 .logo-container{
   display: flex;
   align-items: center;
