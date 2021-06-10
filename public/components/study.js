@@ -90,6 +90,7 @@ export function pomodoroTimer(Timer){
 
     setBreak.addEventListener('input', function (evt) {
         pomodoroBreak = this.value;
+        document.getElementById('pomodoroTimer').innerHTML = "00:"+pomodoroBreak+":00";
     });
 
     var pomodoro = new Timer();
@@ -97,7 +98,7 @@ export function pomodoroTimer(Timer){
     startTimer.addEventListener('click', event => {
         var t = document.getElementById('pomodoroTimer').innerHTML.split(':');
         var mins = parseInt(t[1]);
-        pomodoro.start({countdown: true, startValues: {minutes: mins}});
+        pomodoro.start({countdown: true, startValues: {minutes: mins}, target: {minutes: 0}});
     });
 
     pauseTimer.addEventListener('click', event => {
@@ -115,6 +116,10 @@ export function pomodoroTimer(Timer){
     pomodoro.addEventListener('secondsUpdated', function (e) {
         document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
     }); 
+
+    pomodoro.addEventListener('targetAchieved', function (e) {
+        pomodoro.start({countdown: true, startValues: {minutes: pomodoroBreak}});
+    });
 
     
 }

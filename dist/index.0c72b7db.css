@@ -446,4 +446,26 @@ button {
   font-family: HK Grotesk;
   padding: 10px;
 }
+/* Adapted from https://codepen.io/hesguru/pen/BaybqXv */
+.rating-star {
+  font-size: 3em;
+  direction: rtl;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.rating-star label {
+  color: #e6e6e6;
+  display: inline-block;
+}
+.rating-star input {
+  display: none;
+}
+.rating-star input:checked ~ label,
+.rating-star label:hover,
+.rating-star label:hover ~ label {
+  color: #F45454;
+}
+.rating-star label:hover ~ input:checked ~ label {
+  color: #f454549a;
+}
 /*# sourceMappingURL=index.0c72b7db.css.map */
