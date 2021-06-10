@@ -1,18 +1,16 @@
 import { list } from "postcss";
 
 // NPM library sources
-const pdfMake = require('pdfmake/build/pdfmake.js');
-const pdfFonts = require('pdfmake/build/vfs_fonts.js');  
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const generator = require('@devdhera/acronym');
 
 class timerNavigation {
+    // create timer nav object and set values of object properties
     constructor(tabs, containers){
         this.containers = containers;
         this.tabs = tabs;
         this.currentTimer = null;
     }
-
+    // set class of active timer and clear class of non-active timer
     setTimer(timerId){
         this.currentTimer = timerId.split('-')[0];
         this.tabs.forEach((tab) => {
@@ -21,18 +19,18 @@ class timerNavigation {
                 tab.classList.add('active-tab');
             }
         })
-        
+        // hide non active timer
         this.containers.forEach((container) => {
 			container.style.display = 'none';
 		})
-        var somelem = document.getElementById(timerId)
-        document.getElementById(this.currentTimer).style.display = 'block';
+        document.getElementById(this.currentTimer).style.display = 'block'; // show active timer
     }
 }
 
 
 
 export function classicTimer(timer){
+    // timer control buttons
     let startTimer = document.getElementById("startClassic");
     let pauseTimer = document.getElementById("pauseClassic");
     let resetTimer = document.getElementById("resetClassic");
@@ -49,7 +47,7 @@ export function classicTimer(timer){
         timer.reset();
     });
     
-    
+    // update timer values in html
     timer.addEventListener('secondsUpdated', function (e) {
         document.getElementById('classicTime').innerHTML = timer.getTimeValues().toString();
     });
@@ -65,40 +63,41 @@ export function classicTimer(timer){
 
 }
 
-//https://stackoverflow.com/questions/34558116/re-starting-a-timer-after-stopping-it
-
-
-
 export function pomodoroTimer(Timer){
+    // default pomodoro times
     var pomodoroStart = 25;
     var pomodoroBreak = 5;
     
+    // pomodoro control buttons and custom inputs
     let startTimer = document.getElementById('startPomodoro');
     let pauseTimer = document.getElementById("pausePomodoro");
     let resetTimer = document.getElementById("resetPomodoro");
     let setSession = document.getElementById('sessionLength');
     let setBreak = document.getElementById('breakLength');
 
+    // set html value of default start time
     document.getElementById('pomodoroTimer').innerHTML = "00:"+pomodoroStart+":00";
 
+    // listen to change to start time and update html accordingly
     setSession.addEventListener('input', function (evt) {
-        
         pomodoroStart = this.value;
         document.getElementById('pomodoroTimer').innerHTML = "00:"+pomodoroStart+":00";
         pomodoro.stop();
     });
 
+    // listen to change to break time and update html accordingly
     setBreak.addEventListener('input', function (evt) {
         pomodoroBreak = this.value;
         document.getElementById('pomodoroTimer').innerHTML = "00:"+pomodoroBreak+":00";
     });
 
+    // create new easytimer.js object
     var pomodoro = new Timer();
     
     startTimer.addEventListener('click', event => {
         var t = document.getElementById('pomodoroTimer').innerHTML.split(':');
         var mins = parseInt(t[1]);
-        pomodoro.start({countdown: true, startValues: {minutes: mins}, target: {minutes: 0}});
+        pomodoro.start({countdown: true, startValues: {minutes: mins}, target: {minutes: 0}}); // set timer as countdown with starting value from input value
     });
 
     pauseTimer.addEventListener('click', event => {
@@ -106,44 +105,39 @@ export function pomodoroTimer(Timer){
     });
     
     resetTimer.addEventListener('click', event => {
-
         document.getElementById('pomodoroTimer').innerHTML = "00:"+pomodoroStart+":00";
         pomodoro.reset();
         pomodoro.pause();
-        
     });
 
     pomodoro.addEventListener('secondsUpdated', function (e) {
         document.getElementById('pomodoroTimer').innerHTML = pomodoro.getTimeValues().toString();
     }); 
 
+    // once session time is finished start break timer
     pomodoro.addEventListener('targetAchieved', function (e) {
         pomodoro.start({countdown: true, startValues: {minutes: pomodoroBreak}});
     });
-
-    
 }
-
-
-
-
-// FLASH
-
+// array to store card objects
 var flashCardArray = [];
 var cardIndex; 
 
 export function addFlashCard(question, answer){ 
     var active;
+    // if no cards added then first card will be active
     if (flashCardArray.length == 0){
         active = true;
     } else {
         active = false;
     }
+    // new card object with values frpm add card input
     let card = {
         question,
         answer,
         active
     }
+    // add new card to array and render card stack
     flashCardArray.push(card);
     renderFlashCards();
 }
@@ -151,9 +145,10 @@ export function addFlashCard(question, answer){
 export function renderFlashCards(){
     let question = document.getElementById('qanda');
     if (flashCardArray.length == 0){
-    } else{
+    } else{ // if card stack not empty render cards
         while(question.firstChild) question.removeChild(question.firstChild);
         indexFlashCard();
+        // redner flash cards to html through card values
         let questionText = document.createElement("li");
         questionText.classList.add("questionText");
         let answerText = document.createElement("li");
@@ -167,14 +162,17 @@ export function renderFlashCards(){
 
 export function nextFlashCard(dir){
     if (flashCardArray.length !== 0){
-        flashCardArray[cardIndex].active = false;
+        flashCardArray[cardIndex].active = false; // set current card value as not active
+        // dir = true refers to direction going to next card
         if (dir == true){
+            // set active value of next card as true
             if ((cardIndex+1)==flashCardArray.length){
                 flashCardArray[0].active = true;
             } else {
                 flashCardArray[cardIndex + 1].active = true;
             }
         }
+        // dir = false refers going back to previous card
         else if (dir == false){
             if ((cardIndex-1) < 0){
                 flashCardArray[flashCardArray.length-1].active = true;
@@ -182,38 +180,12 @@ export function nextFlashCard(dir){
                 flashCardArray[cardIndex - 1].active = true;
             }
         }
+        // render cards with new active status
         renderFlashCards();
     }
 }
 
-export function deleteFlashCard(){
-    flashCardArray.splice(cardIndex, 1);
-    cardIndex - 1;
-    renderFlashCards();
-}
-
-export function emptyTaskList(){
-    let taskList = document.getElementById('task-list');
-    let emptyList = document.createElement('li');
-    emptyList.textContent = "Add some tasks"
-    taskList.appendChild(emptyList);
-}
-
-export function getAcronym(words){
-    
-    
-    let showAcronym = document.getElementById('showAcronym');
-
-    generator(words, (err, resp) => {
-        if (err) {
-        console.log(err);
-    }
-        let listItem = document.createElement('li');
-        listItem.textContent = resp +" = "+words;
-        showAcronym.appendChild(listItem);
-    });
-}
-
+// function for finding numerical index of currently active flash card
 function indexFlashCard(){
     for (var i=0; i<flashCardArray.length; i++){
         if (flashCardArray[i].active == true){
@@ -222,136 +194,27 @@ function indexFlashCard(){
     }
 }
 
-/*
-
-var docDefinition = {
-    content: [
-      {
-        table: {
-          // headers are automatically repeated if the table spans over multiple pages
-          // you can declare how many rows should be treated as headers
-          widths: [ 250, 250],
-          heights: [175, 175],
-          alignment : 'center',
-  
-          body: [
-            [ '\n \n \n \nFirst', 'Second' ],
-            [ 'Value 1', 'Value 2']
-          ]
-        }
-      }
-    ]
-  };
-
-
-
-  export function printFlashCards(){
-    console.log('pdf')
-    pdfMake.createPdf(docDefinition).download();
-    
+// if no tasks added show empty state message
+export function emptyTaskList(){
+    let taskList = document.getElementById('task-list');
+    let emptyList = document.createElement('li');
+    emptyList.textContent = "Add some tasks"
+    taskList.appendChild(emptyList);
 }
 
-*/
+export function getAcronym(words){
+    let showAcronym = document.getElementById('showAcronym');
 
-
-// WORKAROUND FOR VERTICALLY CENTRE TEXT IN TABLE CELL - https://github.com/bpampuch/pdfmake/issues/74#issuecomment-726181063
-function findInlineHeight(cell, maxWidth, usedWidth = 0) {
-    let calcLines = (inlines) => {
-        if (inlines == undefined)
-            return {
-                height: 0,
-                width: 0,
-            };
-        let currentMaxHeight = 0;
-        for (const currentNode of inlines) {
-            usedWidth += currentNode.width;
-            if (usedWidth > maxWidth) {
-              currentMaxHeight += currentNode.height;
-              usedWidth = currentNode.width;
-            } else {
-              currentMaxHeight = Math.max(currentNode.height, currentMaxHeight);
-            }
-        }
-        return {
-            height: currentMaxHeight,
-            width: usedWidth,
-        };
+    // new generator object from acronym library
+    generator(words, (err, resp) => {
+        if (err) {
+        console.log(err);
     }
-    if (cell._offsets) {
-      usedWidth += cell._offsets.total;
-    }
-    if (cell._inlines && cell._inlines.length) {
-        return calcLines(cell._inlines);
-    }  else if (cell.stack && cell.stack[0]) {
-        return cell.stack.map(item => {
-            return calcLines(item._inlines);
-        }).reduce((prev, next) => {
-            return {
-            height: prev.height + next.height,
-            width: Math.max(prev.width + next.width)
-            };
-        });
-    } else if (cell.table) {
-      let currentMaxHeight = 0;
-      for (const currentTableBodies of cell.table.body) {
-        const innerTableHeights = currentTableBodies.map((innerTableCell) => {
-          const findInlineHeight = this.findInlineHeight(
-            innerTableCell,
-            maxWidth,
-            usedWidth
-          );
-
-          usedWidth = findInlineHeight.width;
-          return findInlineHeight.height;
-        });
-        currentMaxHeight = Math.max(...innerTableHeights, currentMaxHeight);
-      }
-      return {
-        height: currentMaxHeight,
-        width: usedWidth,
-      };
-    } else if (cell._height) {
-      usedWidth += cell._width;
-      return {
-        height: cell._height,
-        width: usedWidth,
-      };
-    }
-
-    return {
-      height: null,
-      width: usedWidth,
-    };
-}
-
-function applyVerticalAlignment(node, rowIndex, align) {
-    const allCellHeights = node.table.body[rowIndex].map(
-      (innerNode, columnIndex) => {
-        const mFindInlineHeight = findInlineHeight(
-          innerNode,
-          node.table.widths[columnIndex]._calcWidth
-        );
-        return mFindInlineHeight.height;
-      }
-    );
-    const maxRowHeight = Math.max(...allCellHeights);
-    node.table.body[rowIndex].forEach((cell, ci) => {
-      console.log(cell, maxRowHeight, allCellHeights[ci])
-      if (allCellHeights[ci] && maxRowHeight > allCellHeights[ci]) {
-        let topMargin;
-        if (align === 'bottom') {
-          topMargin = maxRowHeight - allCellHeights[ci];
-        } else if (align === 'center') {
-          topMargin = (maxRowHeight - allCellHeights[ci]) / 2;
-        }
-        if (cell._margin) {
-          cell._margin[1] = topMargin;
-        } else {
-          cell._margin = [0, topMargin, 0, 0];
-        }
-      }
+    // display newly created acronym on page
+        let listItem = document.createElement('li');
+        listItem.textContent = resp +" = "+words;
+        showAcronym.appendChild(listItem);
     });
 }
-
 
 export default timerNavigation

@@ -41,8 +41,21 @@ nav {
     color: #F45454;
     border: 1px solid #F45454
   }
+}
 
-  
+.logo-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -20px;
+  margin-left: 35px;
+  h4{
+    color: #707070;
+    margin-left: 20px;
+  }
+  img{
+    margin-top: 14px;
+  }
 }
 
 
